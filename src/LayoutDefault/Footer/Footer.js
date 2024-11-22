@@ -1,10 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import "../../css/style.css";
+import "../../css/footer.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 const bgImage = require("../../images/bg_2.jpg");
-
 function Footer() {
   return (
     <>
@@ -29,7 +28,7 @@ function Footer() {
                 Far far away, behind the word mountains, far from the countries
                 Vokalia and Consonantia, there live the blind texts.
               </p>
-              {/* <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+              <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li>
                   <a href="#">
                     <span className="fab fa-twitter"></span>
@@ -45,13 +44,13 @@ function Footer() {
                     <span className="fab fa-instagram"></span>
                   </a>
                 </li>
-              </ul> */}
+              </ul>
             </div>
             <div className="col-md-4">
-              <h2>Our office</h2>
+              <h2 className="footer__h2--color">Our office</h2>
             </div>
             <div className="col-md-2">
-              <h2>Site Links</h2>
+              <h2 className="footer__h2--color">Site Links</h2>
               <ul className="list-unstyled">
                 <li>
                   <Link to="/" className="py-2 d-block">
@@ -81,14 +80,14 @@ function Footer() {
               </ul>
             </div>
             <div className="col-md-3">
-              <h2>Have a Questions?</h2>
-              <ul className="list-unstyled">
+              <h2 className="footer__h2--color">Have a Questions?</h2>
+              <ul>
                 <li>
-                  <span className="icon icon-phone"></span>
+                  <span className="mr-3 mt-3 fas fa-phone"></span>
                   <span>+2 392 3929 210</span>
                 </li>
                 <li>
-                  <span className="icon icon-envelope"></span>
+                  <span className="mr-3 mt-3 fas fa-envelope"></span>
                   <span>info@yourdomain.com</span>
                 </li>
               </ul>

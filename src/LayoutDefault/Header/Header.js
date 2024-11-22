@@ -1,14 +1,13 @@
-import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import "../../css/style.css";
+import "../../css/header.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import React from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
 function Header() {
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar variant="light" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">
             <i className="fas fa-university"></i> Dom Con <br />
@@ -16,23 +15,38 @@ function Header() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/">
+            <Nav className="navbar__nav ml-auto">
+              <Nav.Link as={NavLink} to="/" exact className="navbar__item">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/about">
+              <Nav.Link as={NavLink} to="/about" className="navbar__item">
                 About
               </Nav.Link>
-              <Nav.Link as={Link} to="/courses">
+              <Nav.Link as={NavLink} to="/courses" className="navbar__item">
                 Courses
               </Nav.Link>
-              <Nav.Link as={Link} to="/tutors">
+              <Nav.Link
+                as={NavLink}
+                to="/tutors"
+                className="navbar__item"
+                activeClassName="active"
+              >
                 Tutors
               </Nav.Link>
-              <Nav.Link as={Link} to="/contact">
+              <Nav.Link
+                as={NavLink}
+                to="/contact"
+                className="navbar__item"
+                activeClassName="active"
+              >
                 Contact
               </Nav.Link>
-              <Nav.Link as={Link} to="/signup" className="cta">
+              <Nav.Link
+                as={NavLink}
+                to="/signup"
+                className="navbar__item cta"
+                activeClassName="active"
+              >
                 <span>Sign up</span>
               </Nav.Link>
             </Nav>
