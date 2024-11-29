@@ -21,7 +21,7 @@ function Footer() {
               <h2>
                 <Link className="navbar-brand" to="/">
                   <i className="fas fa-university"></i> DOM DOM <br />
-                  <small>TUTORS</small>
+                  <small>Gia sư</small>
                 </Link>
               </h2>
               <p>
@@ -46,41 +46,53 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-md-4">
-              <h2 className="footer__h2--color">Our office</h2>
+            <div className="col-md-3">
+              <h2 className="footer__h2--color">Văn phòng</h2>
             </div>
-            <div className="col-md-2">
-              <h2 className="footer__h2--color">Site Links</h2>
+            <div className="col-md-3">
+              <h2 className="footer__h2--color">Giáo dục</h2>
               <ul className="list-unstyled">
                 <li>
-                  <Link to="/" className="py-2 d-block">
-                    Home
+                  <Link to="/" className="py-2 d-block text-decoration-none">
+                    Trang chủ
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="py-2 d-block">
-                    About
+                  <Link
+                    to="/about"
+                    className="py-2 d-block text-decoration-none"
+                  >
+                    Chúng tôi
                   </Link>
                 </li>
                 <li>
-                  <Link to="/courses" className="py-2 d-block">
-                    Courses
+                  <Link
+                    to="/courses"
+                    className="py-2 d-block text-decoration-none"
+                  >
+                    Lớp học
                   </Link>
                 </li>
                 <li>
-                  <Link to="/students" className="py-2 d-block">
-                    Students
+                  <Link
+                    to="/students"
+                    className="py-2 d-block text-decoration-none"
+                  >
+                    Gia sư
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="py-2 d-block">
-                    Contact
+                  <Link
+                    to="/contact"
+                    className="py-2 d-block text-decoration-none"
+                  >
+                    Liên hệ
                   </Link>
                 </li>
               </ul>
             </div>
             <div className="col-md-3">
-              <h2 className="footer__h2--color">Have a Questions?</h2>
+              <h2 className="footer__h2--color">Đặt câu hỏi?</h2>
               <ul>
                 <li>
                   <span className="mr-3 mt-3 fas fa-phone"></span>
@@ -99,13 +111,12 @@ function Footer() {
                 &copy; {new Date().getFullYear()} All rights reserved | This
                 template is made with
                 <i className="icon-heart" aria-hidden="true"></i> by{" "}
-                <a
-                  href="https://colorlib.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/contact"
+                  className="text-primary text-decoration-none"
                 >
                   Dom Con
-                </a>
+                </Link>
               </p>
             </div>
           </div>

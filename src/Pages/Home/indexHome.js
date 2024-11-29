@@ -1,31 +1,20 @@
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../css/home.css";
-//import "../../css/style.css";
 import React from "react";
+import { NavLink, Link } from "react-router-dom";
 import useCounters from "../../Hooks/useCounter";
-import counters from "../../data/counter";
+import counters from "../../Component/counter";
 import Slider from "react-slick";
-import owlSettings from "../../data/owlSetting";
+import owlSettings from "../../Component/owlSetting";
 function Home() {
-  const bgImage = require("../../images/bg_1.jpg");
-  const bgImage3 = require("../../images/bg_3.jpg");
-  const Image1 = require("../../images/image_1.jpg");
-  const Image2 = require("../../images/image_2.jpg");
-  const psImage1 = require("../../images/person_1.jpg");
-  const psImage2 = require("../../images/person_2.jpg");
-  const psImage3 = require("../../images/person_3.jpg");
-  const psImage4 = require("../../images/person_4.jpg");
-
   const counts = useCounters(counters);
   return (
     <>
       <div
         className="hero-wrap"
         style={{
-          backgroundImage: `url(${bgImage})`,
+          backgroundImage: `url(${require("../../images/bg_1.jpg")})`,
           backgroundAttachment: "fixed",
         }}
       >
@@ -35,87 +24,95 @@ function Home() {
             className="row no-gutters slider-text align-items-center justify-content-center"
             data-scrollax-parent="true"
           >
-            <div className="col-md-8  text-center">
-              <h1 className="mb-4">
-                No Nation Can Prosper In Life Without Education
-              </h1>
+            <div className="col-md-8 text-center">
+              <h1 className="mb-4">Hệ Thống Gia Sư Đóm Con Tại Việt Nam</h1>
               <p>
-                <a href="#" className="btn btn-primary px-4 py-3">
-                  View Teachers
-                </a>
-                <a href="#" className="btn btn-secondary px-4 py-3">
-                  View Courses
-                </a>
+                <NavLink to="/tutors" className="btn btn-primary px-4 py-3">
+                  Xem Gia sư
+                </NavLink>
+                <NavLink to="/courses" className="btn btn-secondary px-4 py-3">
+                  Xem Lớp học
+                </NavLink>
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <section className="ftco-search-course mb-4">
+      {/* <section className="ftco-search-course mb-4">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="courseSearch-wrap d-md-flex flex-column-reverse">
                 <div className="full-wrap d-flex ">
                   <div className="one-third order-last p-5">
-                    <h3 className="mb-4 text-center">
-                      Do you want to search ?
-                    </h3>
+                    <h3 className="mb-4 text-center">Bạn muốn tìm kiếm ?</h3>
                     <form action="#" className="course-search-form">
                       <div className="form-group d-flex">
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Type a class you want to study"
+                          placeholder="Nhập lớp học bạn muốn tìm kiếm"
                         />
                         <input
                           type="submit"
-                          value="Search"
+                          value="Tìm kiếm"
                           className="submit"
                         />
                       </div>
                     </form>
                     <p className="mb-5">
-                      Just Browsing? <a href="#"> See all classes</a>
+                      Bạn muốn nhiều hơn?{" "}
+                      <Link to="/courses" className="text-decoration-none">
+                        {" "}
+                        Danh sách Lớp học
+                      </Link>
                     </p>
                     <form action="#" className="course-search-form">
                       <div className="form-group d-flex">
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Type a teacher you want to study"
+                          placeholder="Nhập gia sư bạn muốn tìm kiếm"
                         />
                         <input
                           type="submit"
-                          value="Search"
+                          value="Tìm kiếm"
                           className="submit"
                         />
                       </div>
                     </form>
                     <p>
-                      Just Browsing? <a href="#"> See all teachers</a>
+                      Bạn muốn nhiều hơn?{" "}
+                      <Link to="/tutors" className="text-decoration-none">
+                        {" "}
+                        Danh sách Gia sư
+                      </Link>
                     </p>
                   </div>
                   <div
                     className="one-forth order-first img"
-                    style={{ backgroundImage: `url(${Image1})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/image_1.jpg")})`,
+                    }}
                   ></div>
                 </div>
                 <div className="full-wrap ">
                   <div className="one-half">
                     <div className="featured-blog d-md-flex">
                       <div className="image d-flex order-last">
-                        <a
-                          href="#"
+                        <Link
+                          to="/about"
                           className="img"
-                          style={{ backgroundImage: `url(${Image2})` }}
-                        ></a>
+                          style={{
+                            backgroundImage: `url(${require("../../images/image_2.jpg")})`,
+                          }}
+                        ></Link>
                       </div>
                       <div className="text order-first">
-                        <span className="date">Aug 20, 2018</span>
+                        <span className="date">Ngày 20 tháng 09 năm 2024</span>
                         <h3>
-                          <a href="#">We Conduct Workshop 2018</a>
+                          <strong>We Conduct Workshop 2018</strong>
                         </h3>
                         <p>
                           A small river named Duden flows by their place and
@@ -129,11 +126,11 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section
+      {/* <section
         className="ftco-section-3 img"
-        style={{ backgroundImage: `url(${bgImage3})` }}
+        style={{ backgroundImage: `url(${require("../../images/bg_3.jpg")})` }}
       >
         <div className="overlay" />
         <div className="container">
@@ -153,7 +150,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="ftco-counter bg-light" id="section-counter">
         <div className="container">
@@ -183,7 +180,7 @@ function Home() {
         <div className="container">
           <div className="row justify-content-center mb-3 pb-3">
             <div className="col-md-7 heading-section text-center">
-              <h1 className="mb-4">What Our Student Says</h1>
+              <h1 className="mb-4">Đánh giá về chúng tôi</h1>
             </div>
           </div>
           <div className="row">
@@ -192,7 +189,9 @@ function Home() {
                 <div className="testimony-wrap text-center">
                   <div
                     className="user-img mt-2 mb-4"
-                    style={{ backgroundImage: `url(${psImage1})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_1.jpg")})`,
+                    }}
                   ></div>
                   <div className="text">
                     <p className="mb-5">
@@ -207,7 +206,9 @@ function Home() {
                 <div className="testimony-wrap text-center">
                   <div
                     className="user-img mt-2 mb-4"
-                    style={{ backgroundImage: `url(${psImage2})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_2.jpg")})`,
+                    }}
                   ></div>
                   <div className="text">
                     <p className="mb-5">
@@ -222,7 +223,9 @@ function Home() {
                 <div className="testimony-wrap text-center">
                   <div
                     className="user-img mt-2 mb-4"
-                    style={{ backgroundImage: `url(${psImage3})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_3.jpg")})`,
+                    }}
                   ></div>
                   <div className="text">
                     <p className="mb-5">
@@ -237,7 +240,9 @@ function Home() {
                 <div className="testimony-wrap text-center">
                   <div
                     className="user-img mt-2 mb-4"
-                    style={{ backgroundImage: `url(${psImage4})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_4.jpg")})`,
+                    }}
                   ></div>
                   <div className="text">
                     <p className="mb-5">
@@ -259,7 +264,7 @@ function Home() {
         <div className="container">
           <div className="row justify-content-center mb-5 pb-3">
             <div className="col-md-7 heading-section text-center">
-              <h1 className="mb-4">Our Experience Teachers</h1>
+              <h1 className="mb-4">Gia sư tiêu biểu</h1>
             </div>
           </div>
           <div className="row">
@@ -268,29 +273,33 @@ function Home() {
                 <div className="d-flex mb-4">
                   <div
                     className="img"
-                    style={{ backgroundImage: `url(${psImage1})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_1.jpg")})`,
+                    }}
                   />
                   <div className="info ml-4">
                     <h3>
-                      <a href="teacher-single.html">Ivan Jacobson</a>
+                      <Link to="/detail" className="text-decoration-none">
+                        Ivan Jacobson
+                      </Link>
                     </h3>
                     <span className="position">CSE Teacher</span>
                     <p className="ftco-social d-flex">
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-twitter" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-facebook" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-instagram" />
                       </a>
@@ -311,29 +320,33 @@ function Home() {
                 <div className="d-flex mb-4">
                   <div
                     className="img"
-                    style={{ backgroundImage: `url(${psImage2})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_2.jpg")})`,
+                    }}
                   />
                   <div className="info ml-4">
                     <h3>
-                      <a href="teacher-single.html">Ivan Jacobson</a>
+                      <Link to="/detail" className="text-decoration-none">
+                        Ivan Jacobson
+                      </Link>
                     </h3>
                     <span className="position">CSE Teacher</span>
                     <p className="ftco-social d-flex">
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-twitter" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-facebook" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-instagram" />
                       </a>
@@ -354,29 +367,33 @@ function Home() {
                 <div className="d-flex mb-4">
                   <div
                     className="img"
-                    style={{ backgroundImage: `url(${psImage3})` }}
+                    style={{
+                      backgroundImage: `url(${require("../../images/person_3.jpg")})`,
+                    }}
                   />
                   <div className="info ml-4">
                     <h3>
-                      <a href="teacher-single.html">Ivan Jacobson</a>
+                      <Link to="/detail" className="text-decoration-none">
+                        Ivan Jacobson
+                      </Link>
                     </h3>
                     <span className="position">CSE Teacher</span>
                     <p className="ftco-social d-flex">
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-twitter" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-facebook" />
                       </a>
                       <a
                         href="#"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center text-decoration-none"
                       >
                         <span className="fab fa-instagram" />
                       </a>
@@ -397,21 +414,24 @@ function Home() {
         <div className="row justify-content-center mt-5 text">
           <div className="col-md-10">
             <p>
-              <strong>When she reached</strong> the first hills of the Italic
-              Mountains, she had a last view back on the skyline of her hometown
-              Bookmarksgrove, the headline of Alphabet Village and the subline
-              of her own road, the Line Lane. Pityful a rethoric question ran
-              over her cheek, then she continued her way.
+              <strong>Khi cô đến ngôi trường đầu tiên</strong> trong hành trình
+              làm gia sư, cô đã có một cái nhìn cuối cùng về những học sinh mà
+              mình từng dạy, những lớp học mà cô đã gắn bó và con đường dẫn đến
+              lớp học của mình. Một câu hỏi về sự nghiệp giảng dạy lướt qua tâm
+              trí cô, rồi cô tiếp tục con đường của mình.
             </p>
             <p>
-              <span>Just Browsing?</span>
-              <a href="course.html"> View All Teachers</a>
+              <span>Bạn muốn xem nhiều hơn?</span>
+              <Link to="/tutors" className="text-decoration-none">
+                {" "}
+                Xem tất cả Gia sư
+              </Link>
             </p>
           </div>
         </div>
       </section>
 
-      <section className="ftco-freeTrial">
+      <section className="ftco-freeTrial mb-5">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -425,9 +445,9 @@ function Home() {
                 </div>
                 <div className="btn-join ">
                   <p>
-                    <a href="#" className="btn btn-primary py-3 px-4">
+                    <Link to="/signup" className="btn btn-primary py-3 px-4">
                       Join now!
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -436,7 +456,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="ftco-section">
+      {/* <section className="ftco-section">
         <div className="container">
           <div className="row justify-content-center mb-5 pb-3">
             <div className="col-md-7 heading-section text-center">
@@ -449,24 +469,31 @@ function Home() {
                 <a
                   href="#"
                   className="img"
-                  style={{ backgroundImage: "url(images/course-1.jpg)" }}
+                  style={{
+                    backgroundImage: `url(${require("../../images/course-1.jpg")}`,
+                  }}
                 />
                 <div className="text p-4">
                   <p className="category">
                     <span>English</span>
                   </p>
                   <h3 className="mb-3">
-                    <a href="#">English for Tommorow</a>
+                    <Link to="/courseDetail" className="text-decoration-none">
+                      English for Tommorow
+                    </Link>
                   </h3>
                   <p>
                     Even the all-powerful Pointing has no control about the
                     blind texts it is an almost unorthographic life One day
                     however a small line of blind text by the name
                   </p>
-                  <p>
-                    <a href="#" className="btn btn-primary">
-                      Enroll now!
-                    </a>
+                  <p className="d-flex justify-content-around">
+                    <Link to="" className="btn btn-primary">
+                      Xem chi tiết
+                    </Link>
+                    <Link to="" className="btn btn-danger">
+                      Nhận lớp
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -476,24 +503,31 @@ function Home() {
                 <a
                   href="#"
                   className="img"
-                  style={{ backgroundImage: "url(images/course-2.jpg)" }}
+                  style={{
+                    backgroundImage: `url(${require("../../images/course-2.jpg")})`,
+                  }}
                 />
                 <div className="text p-4">
                   <p className="category">
                     <span>Science</span>
                   </p>
                   <h3 className="mb-3">
-                    <a href="#">Computer Engineering</a>
+                    <Link to="" className="text-decoration-none">
+                      Computer Engineering
+                    </Link>
                   </h3>
                   <p>
                     Even the all-powerful Pointing has no control about the
                     blind texts it is an almost unorthographic life One day
                     however a small line of blind text by the name
                   </p>
-                  <p>
-                    <a href="#" className="btn btn-primary">
-                      Enroll now!
-                    </a>
+                  <p className="d-flex justify-content-around">
+                    <Link to="" className="btn btn-primary">
+                      Xem chi tiết
+                    </Link>
+                    <Link to="" className="btn btn-danger">
+                      Nhận lớp
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -503,24 +537,31 @@ function Home() {
                 <a
                   href="#"
                   className="img"
-                  style={{ backgroundImage: "url(images/course-3.jpg)" }}
+                  style={{
+                    backgroundImage: `url(${require("../../images/course-3.jpg")})`,
+                  }}
                 />
                 <div className="text p-4">
                   <p className="category">
                     <span>Business</span>
                   </p>
                   <h3 className="mb-3">
-                    <a href="#">Business Studies</a>
+                    <Link to="" className="text-decoration-none">
+                      Business Studies
+                    </Link>
                   </h3>
                   <p>
                     Even the all-powerful Pointing has no control about the
                     blind texts it is an almost unorthographic life One day
                     however a small line of blind text by the name
                   </p>
-                  <p>
-                    <a href="#" className="btn btn-primary">
-                      Enroll now!
-                    </a>
+                  <p className="d-flex justify-content-around">
+                    <Link to="" className="btn btn-primary">
+                      Xem chi tiết
+                    </Link>
+                    <Link to="" className="btn btn-danger">
+                      Nhận lớp
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -538,46 +579,11 @@ function Home() {
             </p>
             <p>
               <span>Just Browsing?</span>
-              <a href="course.html"> View All Teachers</a>
+              <Link to="/tutors"> View All Teachers</Link>
             </p>
           </div>
         </div>
-      </section>
-
-      <section className="ftco-section-parallax">
-        <div className="parallax-img d-flex align-items-center">
-          <div className="container">
-            <div className="row d-flex justify-content-center">
-              <div className="col-md-7 text-center heading-section heading-section-white">
-                <h2>Subcribe to our Newsletter</h2>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                  Separated they live in
-                </p>
-                <div className="row d-flex justify-content-center mt-5">
-                  <div className="col-md-8">
-                    <form action="#" className="subscribe-form">
-                      <div className="form-group d-flex">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Enter email address"
-                        />
-                        <input
-                          type="submit"
-                          defaultValue="Subscribe"
-                          className="submit px-3"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </section> */}
     </>
   );
 }
