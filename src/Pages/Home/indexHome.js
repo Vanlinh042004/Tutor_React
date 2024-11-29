@@ -160,7 +160,7 @@ function Home() {
                 {counters.map((counter, index) => (
                   <div
                     key={counter.id}
-                    className="col-md-3 d-flex justify-content-center counter-wrap"
+                    className="col-md-3 d-flex justify-content-center counter-wrap statics"
                   >
                     <div className="block-18 text-center">
                       <div className="text">
