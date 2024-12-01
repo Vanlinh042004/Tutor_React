@@ -3,92 +3,6 @@ import "../../css/course.css";
 function Courses() {
   return (
     <>
-      <div
-        className="hero-wrap hero-wrap-2"
-        style={{
-          backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="overlay" />
-        <div className="container">
-          <div
-            className="row no-gutters slider-text align-items-center justify-content-center"
-            data-scrollax-parent="true"
-          >
-            <div className="col-md-8 text-center">
-              <p className="breadcrumbs">
-                <span className="mr-2">
-                  <Link to="/" className="text-decoration-none">
-                    Home
-                  </Link>
-                </span>
-                <span>Course</span>
-              </p>
-              <h1 className="mb-3 bread">Course</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section className="ftco-register mt-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12 bg-light mt-3 p-5">
-              <h1 className="mb-4">Đăng ký lớp học</h1>
-              <form action="#">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Email"
-                  />
-                </div>
-                <div className="form-group">
-                  <textarea
-                    name=""
-                    id=""
-                    cols={30}
-                    rows={7}
-                    className="form-control"
-                    placeholder="Message"
-                    defaultValue={""}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    defaultValue="Send Message"
-                    className="btn btn-primary py-3 px-5"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="ftco-search-course">
         <div className="container">
           <div className="row">
@@ -96,6 +10,14 @@ function Courses() {
               <div className="full-wrap d-flex ">
                 <div className="one-third order-last p-5">
                   <h3 className=" text-center mb-4">Bạn muốn tìm kiếm ?</h3>
+
+                  <div className="d-flex justify-content-end align-items-center">
+                    <p className="mb-0 me-3 text-warning">Hoặc đăng nhu cầu</p>
+                    <Link to="/registerCourse" className="btn btn-warning">
+                      TẠI ĐÂY
+                    </Link>
+                  </div>
+
                   <form action="#" className="course-search-form">
                     <div className="form-group d-flex">
                       <input
