@@ -153,3 +153,18 @@
   align-items: center;
   z-index: 1000; /* Đảm bảo modal hiển thị trên tất cả các phần tử khác */
 }
+
+/* CSS cho label chọn role */
+.form label[for="role"] {
+  margin-top: 5px; /* Khoảng cách với các trường khác */
+}
+
+.form select.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  appearance: none; /* Loại bỏ mũi tên mặc định của select */
+  -webkit-appearance: none; /* Cho Chrome, Safari */
+  -moz-appearance: none; /* Cho Firefox */
+}
