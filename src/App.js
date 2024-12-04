@@ -7,6 +7,7 @@ import Tutors from "./Pages/Tutors/indexTutors";
 import Contact from "./Pages/Contact/indexContact";
 import TutorDetail from "./Pages/Tutors/tutorDetail";
 import CourseDetail from "./Pages/Courses/courseDetail";
+import RegisterCourse from "./Pages/Courses/RegisterCourse";
 import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="courses" element={<Courses />} />
           <Route path="courseDetail" element={<CourseDetail />} />
+          <Route path="registerCourse" element={<RegisterCourse />} />
           <Route path="tutors" element={<Tutors />} />
           <Route path="detail" element={<TutorDetail />} />
           <Route path="contact" element={<Contact />} />
