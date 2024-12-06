@@ -18,7 +18,6 @@ function Signup() {
         <div className="signUp__form">
           <form className="form">
             <h2 className="title">Register</h2>
-            <p className="message">Sign up now and get full access to our app.</p>
 
             <div className="flex">
               <label>
@@ -74,8 +73,9 @@ function Signup() {
 
             {/* Các trường bổ sung cho gia sư */}
             {role === "tutor" && (
-              <div>
-                <label>
+              <div >
+                 
+              <label className="tutor">
                   <input
                     required
                     placeholder=""
@@ -84,15 +84,9 @@ function Signup() {
                   />
                   <span>Address</span>
                 </label>
-                <label>
-                  <textarea
-                    required
-                    placeholder=""
-                    className="input"
-                  />
-                  <span>Introduction</span>
-                </label>
-                <label>
+               
+        
+                <label className="tutor">
                   <input
                     required
                     placeholder=""
@@ -100,6 +94,14 @@ function Signup() {
                     className="input"
                   />
                   <span>Specialization</span>
+                </label>
+                <label className="tutor Intro">
+                  <textarea
+                    required
+                    placeholder="Indoduction"
+                    className="input"
+                  />
+                  {/* <span>Introduction</span> */}
                 </label>
                 {/* Thêm các trường khác cho gia sư tại đây */}
               </div>
