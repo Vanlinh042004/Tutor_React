@@ -2,7 +2,7 @@ import "../../css/signin.css";
 function Signin() {
   return (
     <>
-      <div className="signUp d-flex">
+      <div className="signIn d-flex">
         <div className="signUp__img">
           <img src={require("../../images/course-1.jpg")}></img>
         </div>
@@ -33,10 +33,22 @@ function Signin() {
             </label>
 
             <button className="submit">Submit</button>
-            <div class="social-message">
-              <div class="line"></div>
+            <a href="#" className="forgot-pass text-decoration-none">
+              {" "}
+              Quên mật khẩu
+            </a>
+            <div class="socialSign">
               <p class="message">Login with social accounts</p>
-              <div class="line"></div>
+              <div class="social">
+                <button className="social__icon">
+                  <i class="fa-brands fa-facebook mr-2"></i>
+                  <span>Facebook</span>
+                </button>
+                <button className="social__icon">
+                  <i class="fab fa-google mr-2"></i>
+                  <span>Google</span>
+                </button>
+              </div>
             </div>
           </form>
         </div>

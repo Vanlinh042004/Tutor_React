@@ -17,3 +17,10 @@
   border-radius: 5px; /* Bo góc nhẹ (tùy chọn) */
   padding: 10px; /* Thêm khoảng cách bên trong (tùy chọn) */
 }
+.btn__feature {
+  width: 25%;
+  font-size: 100%;
+}
+.active {
+  color: #2ba0f4 !important;
+}

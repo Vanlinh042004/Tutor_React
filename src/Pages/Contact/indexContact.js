@@ -1,5 +1,5 @@
 import MapComponent from "../../Component/map";
-
+import "../../css/contact.css";
 function Contact() {
   return (
     <>

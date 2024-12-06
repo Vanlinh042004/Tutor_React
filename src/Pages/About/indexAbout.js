@@ -14,26 +14,19 @@ function About() {
               />
             </div>
             <div className="col-md-6 pl-md-5">
-              <h2 className="mb-4">
-                Welcome to Genius University Stablished Since 1898
-              </h2>
+              <h2 className="mb-4">Chào mừng bạn đến với Gia sư Đóm con</h2>
               <p>
-                The Big Oxmox advised her not to do so, because there were
-                thousands of bad Commas, wild Question Marks and devious
-                Semikoli, but the Little Blind Text didn’t listen. She packed
-                her seven versalia, put her initial into the belt and made
-                herself on the way.
+                Gia sư Đóm con là nơi tìm kiếm gia sư uy tín, chất lượng dành
+                cho học sinh, sinh viên, người đi làm. Với hệ thống gia sư chất
+                lượng, uy tín, giá cả phải chăng, Gia sư Đóm con sẽ giúp bạn
+                nhanh chóng tìm được gia sư phù hợp với nhu cầu học tập của
+                mình.
               </p>
               <p>
-                On her way she met a copy. The copy warned the Little Blind
-                Text, that where it came from it would have been rewritten a
-                thousand times and everything that was left from its origin
-                would be the word "and" and the Little Blind Text should turn
-                around and return to its own, safe country. But nothing the copy
-                said could convince her and so it didn’t take long until a few
-                insidious Copy Writers ambushed her, made her drunk with Longe
-                and Parole and dragged her into their agency, where they abused
-                her for their.
+                Gia sư Đóm con cung cấp dịch vụ gia sư tại nhà, gia sư online,
+                gia sư qua video call, gia sư qua điện thoại, gia sư qua chat
+                trực tuyến, gia sư qua email, gia sư qua tin nhắn. Bạn có thể
+                chọn lựa hình thức học phù hợp với mình.
               </p>
             </div>
           </div>
@@ -49,7 +42,7 @@ function About() {
           <div className="row d-md-flex justify-content-center">
             <div className="col-md-9 about-video text-center">
               <h2 className="">
-                Genius University is a Leading Schools Around the World
+                Gia sư Đóm con - Nơi tìm kiếm gia sư uy tín, chất lượng
               </h2>
             </div>
           </div>

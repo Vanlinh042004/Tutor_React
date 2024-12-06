@@ -23,7 +23,7 @@ function Header() {
                 Chúng tôi
               </Nav.Link>
               <Nav.Link as={NavLink} to="/courses" className="navbar__item">
-                Khóa học
+                Lớp học
               </Nav.Link>
               <Nav.Link
                 as={NavLink}

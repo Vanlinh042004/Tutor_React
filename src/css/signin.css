@@ -1,4 +1,4 @@
-.signUp {
+.signIn {
   justify-content: center;
   align-items: center;
   height: 80vh;
@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 900px;
   background-color: rgb(188, 182, 179);
   padding: 20px;
   border-radius: 20px;
@@ -152,4 +151,25 @@
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Đảm bảo modal hiển thị trên tất cả các phần tử khác */
+}
+.forgot-pass,
+.socialSign {
+  text-align: center;
+}
+.social {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.social__icon {
+  border: 1px solid #eee6e67a;
+  padding: 5px 20px;
+  font-size: 20px;
+  color: rgb(20, 20, 21);
+}
+.social__icon:hover {
+  background-color: #429cd37a;
+}
+.social__icon span {
+  color: #000;
 }
