@@ -3,7 +3,7 @@ import MapComponent from "../../Component/map";
 function Contact() {
   return (
     <>
-      <div
+      {/* <div
         className="hero-wrap hero-wrap-2"
         style={{
           backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
@@ -27,7 +27,7 @@ function Contact() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <section className="ftco-section contact-section ftco-degree-bg">
         <div className="container">

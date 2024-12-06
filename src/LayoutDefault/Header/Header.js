@@ -7,7 +7,7 @@ import { NavLink, Link } from "react-router-dom";
 function Header() {
   return (
     <>
-      <Navbar variant="light" expand="lg">
+      <Navbar variant="light" expand="lg" fixed="top">
         <Container>
           <Navbar.Brand as={Link} to="/">
             <i className="fas fa-university"></i> Dom Con <br />

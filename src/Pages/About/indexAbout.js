@@ -1,32 +1,6 @@
 function About() {
   return (
     <>
-      <div
-        className="hero-wrap hero-wrap-2"
-        style={{
-          backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="overlay" />
-        <div className="container">
-          <div
-            className="row no-gutters slider-text align-items-center justify-content-center"
-            data-scrollax-parent="true"
-          >
-            <div className="col-md-8 text-center">
-              <p className="breadcrumbs">
-                <span className="mr-2">
-                  <a href="index.html">Home</a>
-                </span>
-                <span>About</span>
-              </p>
-              <h1 className="mb-3 bread">About</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <section className="ftco-section">
         <div className="container">
           <div className="row d-flex">

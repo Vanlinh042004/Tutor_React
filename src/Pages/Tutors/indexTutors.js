@@ -3,35 +3,7 @@ import "../../css/tutors.css";
 function Tutors() {
   return (
     <>
-      <div
-        className="hero-wrap hero-wrap-2"
-        style={{
-          backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="overlay" />
-        <div className="container">
-          <div
-            className="row no-gutters slider-text align-items-center justify-content-center"
-            data-scrollax-parent="true"
-          >
-            <div className="col-md-8 text-center">
-              <p className="breadcrumbs">
-                <span className="mr-2">
-                  <Link to="/" className="text-decoration-none">
-                    Home
-                  </Link>
-                </span>
-                <span>Tutor</span>
-              </p>
-              <h1 className="mb-3 bread">Tutors</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section className="ftco-register mt-3">
+      {/* <section className="ftco-register mt-3">
         <div className="container">
           <div className="row">
             <div className="col-md-12 bg-light mt-3 p-5">
@@ -87,7 +59,7 @@ function Tutors() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="ftco-search-course">
         <div className="container">
