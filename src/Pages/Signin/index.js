@@ -1,4 +1,4 @@
-import "../../css/signin.css";
+import "../../Style/signin.css";
 function Signin() {
   return (
     <>
@@ -9,9 +9,7 @@ function Signin() {
         <div className="signUp__form">
           <form className="form ">
             <h2 className="title">Dom Con </h2>
-            <p className="message">
-              Signin now and get full access to our app.{" "}
-            </p>
+            <p className="message">Đăng nhập để tận hưởng mọi lợi ích. </p>
 
             <label>
               <input
@@ -29,16 +27,16 @@ function Signin() {
                 type="password"
                 className="input"
               />
-              <span>Password</span>
+              <span>Mật khẩu</span>
             </label>
 
-            <button className="submit">Submit</button>
+            <button className="submit">Đăng nhập</button>
             <a href="#" className="forgot-pass text-decoration-none">
               {" "}
               Quên mật khẩu
             </a>
             <div class="socialSign">
-              <p class="message">Login with social accounts</p>
+              <p class="message">---------- Hoặc ----------</p>
               <div class="social">
                 <button className="social__icon">
                   <i class="fa-brands fa-facebook mr-2"></i>

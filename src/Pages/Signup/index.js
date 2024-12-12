@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "../../css/signup.css";
+import "../../Style/signup.css";
 
 function Signup() {
   const [role, setRole] = useState(""); // State để lưu trữ role
@@ -17,26 +17,16 @@ function Signup() {
         </div>
         <div className="signUp__form">
           <form className="form">
-            <h2 className="title">Register</h2>
+            <h2 className="title">Đăng ký</h2>
 
             <div className="flex">
               <label>
-                <input
-                  required
-                  placeholder=""
-                  type="text"
-                  className="input"
-                />
-                <span>Firstname</span>
+                <input required placeholder="" type="text" className="input" />
+                <span>Họ</span>
               </label>
               <label>
-                <input
-                  required
-                  placeholder=""
-                  type="text"
-                  className="input"
-                />
-                <span>Lastname</span>
+                <input required placeholder="" type="text" className="input" />
+                <span>Tên</span>
               </label>
             </div>
 
@@ -51,7 +41,7 @@ function Signup() {
                 type="password"
                 className="input"
               />
-              <span>Password</span>
+              <span>Mật khẩu</span>
             </label>
             <label>
               <input
@@ -60,32 +50,23 @@ function Signup() {
                 type="password"
                 className="input"
               />
-              <span>Confirm password</span>
-            </label> 
+              <span>Xác nhận mật khẩu</span>
+            </label>
 
-            {/* Label chọn role */}
-            {/* <label htmlFor="role">Role:</label> */}
-            <select id="role" value={role} onChange={handleRoleChange} className="input">
-              <option value="">-- Chọn role --</option>
+            <select
+              id="role"
+              value={role}
+              onChange={handleRoleChange}
+              className="input"
+            >
+              <option value="">-- Chọn vai trò --</option>
               <option value="tutor">Gia sư</option>
               <option value="parent">Phụ huynh</option>
             </select>
 
             {/* Các trường bổ sung cho gia sư */}
             {role === "tutor" && (
-              <div >
-                 
-              <label className="tutor">
-                  <input
-                    required
-                    placeholder=""
-                    type="text"
-                    className="input"
-                  />
-                  <span>Address</span>
-                </label>
-               
-        
+              <div>
                 <label className="tutor">
                   <input
                     required
@@ -93,12 +74,22 @@ function Signup() {
                     type="text"
                     className="input"
                   />
-                  <span>Specialization</span>
+                  <span>Địa chỉ</span>
+                </label>
+
+                <label className="tutor">
+                  <input
+                    required
+                    placeholder=""
+                    type="text"
+                    className="input"
+                  />
+                  <span>Chuyên môn</span>
                 </label>
                 <label className="tutor Intro">
                   <textarea
                     required
-                    placeholder="Indoduction"
+                    placeholder="Giới thiệu"
                     className="input"
                   />
                   {/* <span>Introduction</span> */}
@@ -107,9 +98,9 @@ function Signup() {
               </div>
             )}
 
-            <button className="submit">Submit</button>
+            <button className="submit">Đăng ký</button>
             <p className="signin">
-              Already have an acount ? <Link to="/signin">Sign in</Link>
+              Bạn đã có tài khoản ? <Link to="/signin">Đăng nhập</Link>
             </p>
           </form>
         </div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../../css/course.css";
+import "../../Style/course.css";
 function Courses() {
   return (
     <>

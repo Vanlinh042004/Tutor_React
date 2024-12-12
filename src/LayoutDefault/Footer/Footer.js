@@ -1,5 +1,5 @@
-import "../../css/style.css";
-import "../../css/footer.css";
+import "../../Style/style.css";
+import "../../Style/footer.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";

@@ -1,66 +1,72 @@
 import { Link } from "react-router-dom";
-import "../../css/tutors.css";
+import { useEffect, useState } from "react";
+import "../../Style/tutors.scss";
 function Tutors() {
+  // const [tutors, setTutors] = useState([]);
+  // const [pageActive, setPageActive] = useState(0);
+  // const [error, setError] = useState(null);
+  // useEffect(() => {
+  //   fetch("https://giasudomcon.glitch.me/tutors")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       //setTutors(data);
+  //       console.log(data);
+  //     });
+  // }, []);
+  // console.log(tutors);
+  // const handlePageChange = (newPage) => {
+  //   setPageActive(newPage);
+  // };
+  // const renderPagination = () => {
+  //   const pages = [];
+  //   const maxPagesToShow = 5;
+  //   const startPage = Math.max(0, pageActive - Math.floor(maxPagesToShow / 2));
+  //   const endPage = Math.min(totalPage, startPage + maxPagesToShow);
+
+  //   for (let i = startPage; i < endPage; i++) {
+  //     pages.push(
+  //       <li
+  //         key={i}
+  //         className={`pagination__item ${
+  //           i === pageActive ? "pagination__item--active" : ""
+  //         }`}
+  //       >
+  //         <button
+  //           className="pagination__link"
+  //           onClick={() => handlePageChange(i)}
+  //         >
+  //           {i + 1}
+  //         </button>
+  //       </li>
+  //     );
+  //   }
+
+  //   if (startPage > 0) {
+  //     pages.unshift(
+  //       <li
+  //         key="start-ellipsis"
+  //         className="pagination__item pagination__item--disabled"
+  //       >
+  //         <span className="pagination__link">...</span>
+  //       </li>
+  //     );
+  //   }
+
+  //   if (endPage < totalPage) {
+  //     pages.push(
+  //       <li
+  //         key="end-ellipsis"
+  //         className="pagination__item pagination__item--disabled"
+  //       >
+  //         <span className="pagination__link">...</span>
+  //       </li>
+  //     );
+  //   }
+
+  //   return pages;
+  // };
   return (
     <>
-      {/* <section className="ftco-register mt-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12 bg-light mt-3 p-5">
-              <h1 className="mb-4">Đăng ký làm gia sư</h1>
-              <form action="#">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your Email"
-                  />
-                </div>
-                <div className="form-group">
-                  <textarea
-                    name=""
-                    id=""
-                    cols={30}
-                    rows={7}
-                    className="form-control"
-                    placeholder="Message"
-                    defaultValue={""}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    defaultValue="Send Message"
-                    className="btn btn-primary py-3 px-5"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       <section className="ftco-search-course">
         <div className="container">
           <div className="row">
@@ -121,145 +127,91 @@ function Tutors() {
               <h2 className="mb-4">Our Experience Advisor</h2>
             </div>
           </div>
-          <div className="row">
-            <div className="col-lg-4 mb-sm-4">
-              <div className="staff">
-                <div className="d-flex mb-4">
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: `url(${require("../../images/person_1.jpg")})`,
-                    }}
-                  />
-                  <div className="info ml-4">
-                    <h3>
-                      <Link to="/detail">Ivan Jacobson</Link>
-                    </h3>
-                    <span className="position">CSE Teacher</span>
-                    <p className="ftco-social d-flex">
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-twitter" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-facebook" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-instagram" />
-                      </Link>
-                    </p>
+          {/* <div className="row">
+            {tutors.map((tutor) => (
+              <div className="col-lg-4 mb-sm-4" key={tutor.id}>
+                <div className="staff">
+                  <div className="d-flex mb-4">
+                    <div
+                      className="img"
+                      style={{
+                        backgroundImage: `url(${require("../../images/person_1.jpg")})`,
+                      }}
+                    />
+                    <div className="info ml-4">
+                      <h3>
+                        <Link to="/detail">{tutor.name}</Link>
+                      </h3>
+                      <span className="position">{tutor.specialization}</span>
+                      <p className="ftco-social d-flex">
+                        <Link
+                          to="#"
+                          className="d-flex justify-content-center align-items-center"
+                        >
+                          <span className="fab fa-twitter" />
+                        </Link>
+                        <Link
+                          to="#"
+                          className="d-flex justify-content-center align-items-center"
+                        >
+                          <span className="fab fa-facebook" />
+                        </Link>
+                        <Link
+                          to="#"
+                          className="d-flex justify-content-center align-items-center"
+                        >
+                          <span className="fab fa-instagram" />
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text">
+                    <p>{tutor.introduction}</p>
                   </div>
                 </div>
-                <div className="text">
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                </div>
               </div>
-            </div>
-            <div className="col-lg-4 mb-sm-4">
-              <div className="staff">
-                <div className="d-flex mb-4">
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: `url(${require("../../images/person_2.jpg")})`,
-                    }}
-                  />
-                  <div className="info ml-4">
-                    <h3>
-                      <Link to="/detail">Ivan Jacobson</Link>
-                    </h3>
-                    <span className="position">CSE Teacher</span>
-                    <p className="ftco-social d-flex">
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-twitter" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-facebook" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-instagram" />
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-                <div className="text">
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 mb-sm-4">
-              <div className="staff">
-                <div className="d-flex mb-4">
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: `url(${require("../../images/person_3.jpg")})`,
-                    }}
-                  />
-                  <div className="info ml-4">
-                    <h3>
-                      <Link to="/detail">Ivan Jacobson</Link>
-                    </h3>
-                    <span className="position">CSE Teacher</span>
-                    <p className="ftco-social d-flex">
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-twitter" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-facebook" />
-                      </Link>
-                      <Link
-                        to="#"
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <span className="fab fa-instagram" />
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-                <div className="text">
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))}
+          </div> */}
         </div>
       </section>
+
+      {/* <section className="ftco-page">
+        <div className="row justify-content-center">
+          <div className="col-md-12 text-center">
+            <nav>
+              <ul className="pagination">
+                <li
+                  className={`pagination__item ${
+                    pageActive === 0 ? "pagination__item--disabled" : ""
+                  }`}
+                >
+                  <button
+                    className="pagination__link"
+                    onClick={() => handlePageChange(pageActive - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {renderPagination()}
+                <li
+                  className={`pagination__item ${
+                    pageActive === totalPage - 1
+                      ? "pagination__item--disabled"
+                      : ""
+                  }`}
+                >
+                  <button
+                    className="pagination__link"
+                    onClick={() => handlePageChange(pageActive + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </section> */}
     </>
   );
 }

@@ -1,14 +1,28 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../../css/home.css";
+import "../../Style/home.scss";
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import useCounters from "../../Hooks/useCounter";
-import counters from "../../Component/counter";
 import Slider from "react-slick";
-import owlSettings from "../../Component/owlSetting";
 function Home() {
+  const counters = [
+    { id: 1, value: 10300, label: "Satisfied Students" },
+    { id: 2, value: 7896, label: "Courses Completed" },
+    { id: 3, value: 400, label: "Experts Advisors" },
+    { id: 4, value: 200, label: "Customers" },
+  ];
   const counts = useCounters(counters);
+
+  const owlSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  };
   return (
     <>
       <div

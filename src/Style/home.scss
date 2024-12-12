@@ -1,6 +1,10 @@
 .btn {
   border-radius: 30px;
   margin: 10px;
+  &__feature {
+    width: 25%;
+    font-size: 100%;
+  }
 }
 .ftco-search-course {
   margin-top: -200px !important;
@@ -16,11 +20,4 @@
   border: 1px solid #bd6d6d; /* Đường viền mỏng màu xám nhạt */
   border-radius: 5px; /* Bo góc nhẹ (tùy chọn) */
   padding: 10px; /* Thêm khoảng cách bên trong (tùy chọn) */
-}
-.btn__feature {
-  width: 25%;
-  font-size: 100%;
-}
-.active {
-  color: #2ba0f4 !important;
 }

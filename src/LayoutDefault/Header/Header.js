@@ -1,4 +1,4 @@
-import "../../css/header.css";
+import "../../Style/header.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
@@ -13,9 +13,8 @@ function Header() {
             <i className="fas fa-university"></i> Dom Con <br />
             <small>Gia sư</small>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="navbar__nav ml-auto">
+          <Navbar.Collapse>
+            <Nav className="navbar ml-auto">
               <Nav.Link as={NavLink} to="/" exact className="navbar__item">
                 Trang chủ
               </Nav.Link>
@@ -33,20 +32,10 @@ function Header() {
               >
                 Gia sư
               </Nav.Link>
-              <Nav.Link
-                as={NavLink}
-                to="/contact"
-                className="navbar__item"
-                activeClassName="active"
-              >
+              <Nav.Link as={NavLink} to="/contact" className="navbar__item">
                 Liên hệ
               </Nav.Link>
-              <Nav.Link
-                as={NavLink}
-                to="/signup"
-                className="navbar__item cta"
-                activeClassName="active"
-              >
+              <Nav.Link as={NavLink} to="/signup" className="navbar__item cta">
                 <span>Đăng ký</span>
               </Nav.Link>
             </Nav>
