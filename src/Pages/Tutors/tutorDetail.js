@@ -1,35 +1,23 @@
+import { parse } from "postcss";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import images from "../../Component/imgPerson";
+const randomImage = images[Math.floor(Math.random() * images.length)];
 function TutorDetail() {
+  const { slug } = useParams();
+  const [tutor, setTutor] = useState([]);
+  useEffect(() => {
+    fetch(`https://tutorprosite-k22.onrender.com/tutors/${slug}`)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          setTutor(data.tutor);
+        },
+        [slug]
+      );
+  });
   return (
     <>
-      <div
-        className="hero-wrap hero-wrap-2"
-        style={{
-          backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="overlay" />
-        <div className="container">
-          <div
-            className="row no-gutters slider-text align-items-center justify-content-center"
-            data-scrollax-parent="true"
-          >
-            <div className="col-md-8 text-center">
-              <p className="breadcrumbs">
-                <span className="mr-2">
-                  <a href="index.html">Home</a>
-                </span>
-                <span className="mr-2">
-                  <a href="index.html">Tutors</a>
-                </span>
-                <span>Tutor Detail</span>
-              </p>
-              <h1 className="mb-3 bread">Tutors Detail</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <section className="ftco-section">
         <div className="container">
           <div className="row justify-content-center">
@@ -40,46 +28,37 @@ function TutorDetail() {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${require("../../images/person_2.jpg")})`,
+                        backgroundImage: `url(${randomImage})`,
+                        height: "400px",
                       }}
                     />
                     <div className="text">
-                      <h3>Mary Gold</h3>
-                      <span className="position">CSE Teacher</span>
-                      <p>
-                        When she reached the first hills of the Italic
-                        Mountains, she had a last view back on the skyline of
-                        her hometown Bookmarksgrove, the headline of Alphabet
-                        Village and the subline of her own road, the Line Lane.
-                        Pityful a rethoric question ran over her cheek, then she
-                        continued her way.
+                      <h3>{tutor.name}</h3>
+                      <p className="text__position">
+                        {tutor.specialization} Teacher
                       </p>
-                      <p>
-                        When she reached the first hills of the Italic
-                        Mountains, she had a last view back on the skyline of
-                        her hometown Bookmarksgrove, the headline of Alphabet
-                        Village and the subline of her own road, the Line Lane.
-                        Pityful a rethoric question ran over her cheek, then she
-                        continued her way.
-                      </p>
+                      <p className="text__phone">+{tutor.phoneNumber}</p>
+                      <p className="text__address">{tutor.address}</p>
+
+                      <p className="text__intro">{tutor.introduction}</p>
                       <div className="mt-4">
                         <h4>Social Link</h4>
                         <p className="ftco-social d-flex">
                           <a
                             href="#"
-                            className="d-flex justify-content-center align-items-center"
+                            className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-twitter" />
                           </a>
                           <a
                             href="#"
-                            className="d-flex justify-content-center align-items-center"
+                            className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-facebook" />
                           </a>
                           <a
                             href="#"
-                            className="d-flex justify-content-center align-items-center"
+                            className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-instagram" />
                           </a>
@@ -89,7 +68,7 @@ function TutorDetail() {
                   </div>
                 </div>
                 <div className="col-md-12 bg-light mt-3 p-5">
-                  <h4 className="mb-4">Send a Message</h4>
+                  <h4 className="mb-4">Đánh giá gia sư</h4>
                   <form action="#">
                     <div className="form-group">
                       <input
@@ -112,7 +91,7 @@ function TutorDetail() {
                         cols={30}
                         rows={7}
                         className="form-control"
-                        placeholder="Message"
+                        placeholder="Đánh giá của bạn"
                         defaultValue={""}
                       />
                     </div>
@@ -121,6 +100,7 @@ function TutorDetail() {
                         type="submit"
                         defaultValue="Send Message"
                         className="btn btn-primary py-3 px-5"
+                        value="Gửi đánh giá"
                       />
                     </div>
                   </form>
@@ -133,4 +113,5 @@ function TutorDetail() {
     </>
   );
 }
+
 export default TutorDetail;
