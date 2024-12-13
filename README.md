@@ -1,3 +1,4 @@
 # Lớp học & Gia sư
-- Chưa gọi api => phân trang
-- Chưa có api chi tiết
+- Đã gọi api
+# User
+- Chưa có page chỉnh sửa
