@@ -3,6 +3,7 @@ import "../../Style/footer.scss";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
+import MapComponent from "../../Component/map";
 const bgImage = require("../../images/bg_2.jpg");
 function Footer() {
   return (
@@ -48,6 +49,12 @@ function Footer() {
             </div>
             <div className="col-md-3">
               <h2 className="footer__h2--color">Văn phòng</h2>
+              <div className="mt-3">
+                <p>
+                  <i className="fa-solid fa-map-location-dot mr-2"></i> Đông
+                  Hòa, Dĩ An, Bình Dương
+                </p>
+              </div>
             </div>
             <div className="col-md-3">
               <h2 className="footer__h2--color">Giáo dục</h2>
@@ -75,7 +82,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/students"
+                    to="/tutors"
                     className="py-2 d-block text-decoration-none"
                   >
                     Gia sư
@@ -96,11 +103,11 @@ function Footer() {
               <ul>
                 <li>
                   <span className="mr-3 mt-3 fas fa-phone"></span>
-                  <span>+2 392 3929 210</span>
+                  <span>0862153383</span>
                 </li>
                 <li>
                   <span className="mr-3 mt-3 fas fa-envelope"></span>
-                  <span>info@yourdomain.com</span>
+                  <span>vanlinh204@gmail.com</span>
                 </li>
               </ul>
             </div>

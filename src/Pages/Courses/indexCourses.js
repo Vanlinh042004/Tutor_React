@@ -1,6 +1,78 @@
 import { Link } from "react-router-dom";
-import "../../Style/course.css";
+import { useState, useEffect } from "react";
+import "../../Style/course.scss";
+import images from "../../Component/imgCourse";
 function Courses() {
+  const [courses, setCourses] = useState([]);
+  const [totalPages, setTotalCourses] = useState(0);
+  const [pageActive, setCurrentPage] = useState(1);
+  const assignRandomImages = (courses) => {
+    return courses.map((course) => {
+      const randomImage = images[Math.floor(Math.random() * images.length)];
+      return { ...course, image: randomImage };
+    });
+  };
+  useEffect(() => {
+    fetch(`https://tutorprosite-k22.onrender.com/courses?page=${pageActive}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const coursesWithImages = assignRandomImages(data.courses);
+        setCourses(coursesWithImages);
+        setTotalCourses(data.pagination.totalPages);
+      });
+  }, [pageActive]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+  const renderPagination = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    const startPage = Math.max(0, pageActive - Math.floor(maxPagesToShow / 2));
+    const endPage = Math.min(totalPages, startPage + maxPagesToShow);
+
+    for (let i = startPage; i < endPage; i++) {
+      pages.push(
+        <li
+          key={i}
+          className={`pagination__item ${
+            i === pageActive ? "pagination__item--active" : ""
+          }`}
+        >
+          <button
+            className="pagination__link"
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </button>
+        </li>
+      );
+    }
+
+    if (startPage > 0) {
+      pages.unshift(
+        <li
+          key="start-ellipsis"
+          className="pagination__item pagination__item--disabled"
+        >
+          <span className="pagination__link">...</span>
+        </li>
+      );
+    }
+
+    if (endPage < totalPages) {
+      pages.push(
+        <li
+          key="end-ellipsis"
+          className="pagination__item pagination__item--disabled"
+        >
+          <span className="pagination__link">...</span>
+        </li>
+      );
+    }
+
+    return pages;
+  };
   return (
     <>
       <section className="ftco-search-course">
@@ -66,201 +138,81 @@ function Courses() {
       <section className="ftco-section">
         <div className="container">
           <div className="row">
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-1.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>English</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <Link to="/courseDetail">English for Tommorow</Link>
-                  </h3>
-                  <p>Địa chỉ</p>
-                  <p>Yêu cầu</p>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
+            {courses.map((course) => (
+              <div className="col-md-4 d-flex" key="course._id">
+                <div className="course align-self-stretch">
+                  <a
+                    href="#"
+                    className="img"
+                    style={{
+                      backgroundImage: `url(${course.image})`,
+                    }}
+                  />
+                  <div className="text p-4">
+                    <p className="category">
+                      <span className="price">${course.salary}</span>
+                    </p>
+                    <h3 className="mb-3">
+                      <p className="text-decoration-none">
+                        {course.subject} {course.grade}
+                      </p>
+                    </h3>
+                    <p>{course.address}</p>
+                    <p>Gia sư {course.sexTutor}</p>
+                    <p>{course.requirements}</p>
 
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
+                    <p className="d-flex justify-content-around">
+                      <Link
+                        to={`/courses/${course.slug}`}
+                        className="btn btn-primary"
+                      >
+                        Xem chi tiết
+                      </Link>
+                      <Link to="" className="btn btn-danger">
+                        Nhận lớp
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-2.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>Science</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <a href="#">Computer Engineering</a>
-                  </h3>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-3.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>Business</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <a href="#">Business Studies</a>
-                  </h3>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-4.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>English</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <a href="#">English for Tommorow</a>
-                  </h3>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-5.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>Science</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <a href="#">Computer Engineering</a>
-                  </h3>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 d-flex">
-              <div className="course align-self-stretch">
-                <a
-                  href="#"
-                  className="img"
-                  style={{
-                    backgroundImage: `url(${require("../../images/course-6.jpg")})`,
-                  }}
-                />
-                <div className="text p-4">
-                  <p className="category">
-                    <span>Business</span> <span className="price">$250</span>
-                  </p>
-                  <h3 className="mb-3">
-                    <a href="#">Business Studies</a>
-                  </h3>
-                  <p>
-                    Even the all-powerful Pointing has no control about the
-                    blind texts it is an almost unorthographic life One day
-                    however a small line of blind text by the name
-                  </p>
-                  <p className="d-flex justify-content-around">
-                    <Link to="" className="btn btn-primary">
-                      Xem chi tiết
-                    </Link>
-                    <Link to="" className="btn btn-danger">
-                      Nhận lớp
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="ftco-page">
+        <div className="row justify-content-center">
+          <div className="col-md-12 text-center">
+            <nav>
+              <ul className="pagination">
+                <li
+                  className={`pagination__item ${
+                    pageActive === 0 ? "pagination__item--disabled" : ""
+                  }`}
+                >
+                  <button
+                    className="pagination__link"
+                    onClick={() => handlePageChange(pageActive - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                {renderPagination()}
+                <li
+                  className={`pagination__item ${
+                    pageActive === totalPages - 1
+                      ? "pagination__item--disabled"
+                      : ""
+                  }`}
+                >
+                  <button
+                    className="pagination__link"
+                    onClick={() => handlePageChange(pageActive + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </section>

@@ -24,12 +24,7 @@ function Header() {
               <Nav.Link as={NavLink} to="/courses" className="navbar__item">
                 Lớp học
               </Nav.Link>
-              <Nav.Link
-                as={NavLink}
-                to="/tutors"
-                className="navbar__item"
-                activeClassName="active"
-              >
+              <Nav.Link as={NavLink} to="/tutors" className="navbar__item">
                 Gia sư
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact" className="navbar__item">

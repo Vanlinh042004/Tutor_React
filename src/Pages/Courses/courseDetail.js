@@ -1,36 +1,19 @@
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import images from "../../Component/imgCourse";
+const randomImage = images[Math.floor(Math.random() * images.length)];
 function CourseDetail() {
+  const { slug } = useParams();
+  const [course, setCourse] = useState([]);
+  useEffect(() => {
+    fetch(`https://tutorprosite-k22.onrender.com/courses/${slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCourse(data.course);
+      });
+  }, [slug]);
   return (
     <>
-      <div
-        className="hero-wrap hero-wrap-2"
-        style={{
-          backgroundImage: `url(${require("../../images/bg_2.jpg")})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="overlay" />
-        <div className="container">
-          <div
-            className="row no-gutters slider-text align-items-center justify-content-center"
-            data-scrollax-parent="true"
-          >
-            <div className="col-md-8 text-center">
-              <p className="breadcrumbs">
-                <span className="mr-2">
-                  <a href="index.html">Home</a>
-                </span>
-                <span className="mr-2">
-                  <a href="index.html">Courses</a>
-                </span>
-                <span>Course Detail</span>
-              </p>
-              <h1 className="mb-3 bread">Course Detail</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <section className="ftco-section">
         <div className="container">
           <div className="row justify-content-center">
@@ -41,68 +24,27 @@ function CourseDetail() {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${require("../../images/course-1.jpg")})`,
+                        backgroundImage: `url(${randomImage})`,
                       }}
                     />
                     <div className="text">
-                      <h3>English</h3>
-                      <span className="position">CSE Teacher</span>
+                      <h3>
+                        {course.subject} {course.grade}
+                      </h3>
+                      <span className="position">
+                        Lương ${course.salary} - Phí ${course.fee}
+                      </span>
                       <p>
-                        When she reached the first hills of the Italic
-                        Mountains, she had a last view back on the skyline of
-                        her hometown Bookmarksgrove, the headline of Alphabet
-                        Village and the subline of her own road, the Line Lane.
-                        Pityful a rethoric question ran over her cheek, then she
-                        continued her way.
+                        {course.teachingMode} - {course.schedule}
                       </p>
-                      <p>
-                        When she reached the first hills of the Italic
-                        Mountains, she had a last view back on the skyline of
-                        her hometown Bookmarksgrove, the headline of Alphabet
-                        Village and the subline of her own road, the Line Lane.
-                        Pityful a rethoric question ran over her cheek, then she
-                        continued her way.
-                      </p>
+                      <p>Gia sư {course.sexTutor}</p>
+                      <p>{course.address}</p>
+                      <p>{course.studentInfo}</p>
+                      <p>{course.requirements}</p>
+                      <p>{course.contact}</p>
                       <div className="mt-4"></div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-12 bg-light mt-3 p-5">
-                  <h4 className="mb-4">Send a Message</h4>
-                  <form action="#">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Your Name"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Your Email"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <textarea
-                        name=""
-                        id=""
-                        cols={30}
-                        rows={7}
-                        className="form-control"
-                        placeholder="Message"
-                        defaultValue={""}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="submit"
-                        defaultValue="Send Message"
-                        className="btn btn-primary py-3 px-5"
-                      />
-                    </div>
-                  </form>
                 </div>
               </div>
             </div>

@@ -1,70 +1,80 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import "../../Style/tutors.scss";
+import React, { useEffect, useState } from "react";
+import "../../Style/course.scss";
+import images from "../../Component/imgPerson";
 function Tutors() {
-  // const [tutors, setTutors] = useState([]);
-  // const [pageActive, setPageActive] = useState(0);
-  // const [error, setError] = useState(null);
-  // useEffect(() => {
-  //   fetch("https://giasudomcon.glitch.me/tutors")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       //setTutors(data);
-  //       console.log(data);
-  //     });
-  // }, []);
-  // console.log(tutors);
-  // const handlePageChange = (newPage) => {
-  //   setPageActive(newPage);
-  // };
-  // const renderPagination = () => {
-  //   const pages = [];
-  //   const maxPagesToShow = 5;
-  //   const startPage = Math.max(0, pageActive - Math.floor(maxPagesToShow / 2));
-  //   const endPage = Math.min(totalPage, startPage + maxPagesToShow);
+  const [tutors, setTutors] = useState([]);
+  const [pageActive, setPageActive] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const assignRandomImages = (tutors) => {
+    return tutors.map((tutor) => {
+      const randomImage = images[Math.floor(Math.random() * images.length)];
+      return { ...tutor, image: randomImage };
+    });
+  };
+  useEffect(() => {
+    fetch(`https://tutorprosite-k22.onrender.com/tutors?page=${pageActive}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const tutorsWithImages = assignRandomImages(data.data);
+        setTutors(tutorsWithImages);
+        setTotalPage(data.pagination.totalPages);
+      });
+  }, [pageActive]);
 
-  //   for (let i = startPage; i < endPage; i++) {
-  //     pages.push(
-  //       <li
-  //         key={i}
-  //         className={`pagination__item ${
-  //           i === pageActive ? "pagination__item--active" : ""
-  //         }`}
-  //       >
-  //         <button
-  //           className="pagination__link"
-  //           onClick={() => handlePageChange(i)}
-  //         >
-  //           {i + 1}
-  //         </button>
-  //       </li>
-  //     );
-  //   }
+  const handlePageChange = (newPage) => {
+    setPageActive(newPage);
+  };
 
-  //   if (startPage > 0) {
-  //     pages.unshift(
-  //       <li
-  //         key="start-ellipsis"
-  //         className="pagination__item pagination__item--disabled"
-  //       >
-  //         <span className="pagination__link">...</span>
-  //       </li>
-  //     );
-  //   }
+  const renderPagination = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    const startPage = Math.max(0, pageActive - Math.floor(maxPagesToShow / 2));
+    const endPage = Math.min(totalPage, startPage + maxPagesToShow);
 
-  //   if (endPage < totalPage) {
-  //     pages.push(
-  //       <li
-  //         key="end-ellipsis"
-  //         className="pagination__item pagination__item--disabled"
-  //       >
-  //         <span className="pagination__link">...</span>
-  //       </li>
-  //     );
-  //   }
+    for (let i = startPage; i < endPage; i++) {
+      pages.push(
+        <li
+          key={i}
+          className={`pagination__item ${
+            i === pageActive ? "pagination__item--active" : ""
+          }`}
+        >
+          <button
+            className="pagination__link"
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </button>
+        </li>
+      );
+    }
 
-  //   return pages;
-  // };
+    if (startPage > 0) {
+      pages.unshift(
+        <li
+          key="start-ellipsis"
+          className="pagination__item pagination__item--disabled"
+        >
+          <span className="pagination__link">...</span>
+        </li>
+      );
+    }
+
+    if (endPage < totalPage) {
+      pages.push(
+        <li
+          key="end-ellipsis"
+          className="pagination__item pagination__item--disabled"
+        >
+          <span className="pagination__link">...</span>
+        </li>
+      );
+    }
+
+    return pages;
+  };
+
   return (
     <>
       <section className="ftco-search-course">
@@ -94,7 +104,6 @@ function Tutors() {
                         <option value="" disabled>
                           Chọn Gia sư
                         </option>
-
                         <option value="Female">Nam</option>
                         <option value="Male">Nữ</option>
                         <option value="english">Tiếng Anh</option>
@@ -122,43 +131,44 @@ function Tutors() {
 
       <section className="ftco-section bg-light">
         <div className="container">
-          <div className="row justify-content-center mb-5 pb-3">
-            <div className="col-md-7 heading-section text-center">
-              <h2 className="mb-4">Our Experience Advisor</h2>
-            </div>
-          </div>
-          {/* <div className="row">
+          <div className="row justify-content-center mb-5 pb-3"></div>
+          <div className="row">
             {tutors.map((tutor) => (
-              <div className="col-lg-4 mb-sm-4" key={tutor.id}>
+              <div className="col-lg-4 mb-sm-4" key={tutor._id}>
                 <div className="staff">
                   <div className="d-flex mb-4">
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${require("../../images/person_1.jpg")})`,
+                        backgroundImage: `url(${tutor.image})`,
                       }}
                     />
                     <div className="info ml-4">
                       <h3>
-                        <Link to="/detail">{tutor.name}</Link>
+                        <Link
+                          to={`/tutors/${tutor.slug}`}
+                          className="text-decoration-none text-black"
+                        >
+                          {tutor.name}
+                        </Link>
                       </h3>
                       <span className="position">{tutor.specialization}</span>
                       <p className="ftco-social d-flex">
                         <Link
                           to="#"
-                          className="d-flex justify-content-center align-items-center"
+                          className="d-flex justify-content-center align-items-center text-decoration-none"
                         >
                           <span className="fab fa-twitter" />
                         </Link>
                         <Link
                           to="#"
-                          className="d-flex justify-content-center align-items-center"
+                          className="d-flex justify-content-center align-items-center text-decoration-none"
                         >
                           <span className="fab fa-facebook" />
                         </Link>
                         <Link
                           to="#"
-                          className="d-flex justify-content-center align-items-center"
+                          className="d-flex justify-content-center align-items-center text-decoration-none"
                         >
                           <span className="fab fa-instagram" />
                         </Link>
@@ -171,11 +181,11 @@ function Tutors() {
                 </div>
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </section>
 
-      {/* <section className="ftco-page">
+      <section className="ftco-page">
         <div className="row justify-content-center">
           <div className="col-md-12 text-center">
             <nav>
@@ -211,8 +221,9 @@ function Tutors() {
             </nav>
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 }
+
 export default Tutors;
