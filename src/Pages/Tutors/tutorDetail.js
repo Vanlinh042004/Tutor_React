@@ -2,19 +2,17 @@ import { parse } from "postcss";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgPerson";
+import { getDetailTutor } from "../../Services/tutorService";
 const randomImage = images[Math.floor(Math.random() * images.length)];
 function TutorDetail() {
   const { slug } = useParams();
   const [tutor, setTutor] = useState([]);
   useEffect(() => {
-    fetch(`https://tutorprosite-k22.onrender.com/tutors/${slug}`)
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          setTutor(data.tutor);
-        },
-        [slug]
-      );
+    const fetchTutor = async () => {
+      const data = await getDetailTutor(slug);
+      setTutor(data.tutor);
+    };
+    fetchTutor();
   });
   return (
     <>

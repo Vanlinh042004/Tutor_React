@@ -8,8 +8,9 @@ import Contact from "./Pages/Contact/indexContact";
 import TutorDetail from "./Pages/Tutors/tutorDetail";
 import CourseDetail from "./Pages/Courses/courseDetail";
 import RegisterCourse from "./Pages/Courses/RegisterCourse";
-import Signup from "./Pages/Signup";
-import Signin from "./Pages/Signin";
+import Signup from "./Pages/Register";
+import Signin from "./Pages/Login";
+import Logout from "./Pages/Logout/indexLogout";
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
+          <Route path="logout" element={<Logout />} />
         </Route>
       </Routes>
       {/* <TutorDetail /> */}

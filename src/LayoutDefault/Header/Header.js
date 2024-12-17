@@ -4,7 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
+import { getCookie } from "../../Helpers/cookie";
+import { useSelector } from "react-redux";
 function Header() {
+  const token = getCookie("token");
+  const role = getCookie("role");
+  //console.log(token);
+  const isLogin = useSelector((state) => state.loginReducer);
+  //console.log(isLogin);
   return (
     <>
       <Navbar variant="light" expand="lg" fixed="top">
@@ -30,9 +37,17 @@ function Header() {
               <Nav.Link as={NavLink} to="/contact" className="navbar__item">
                 Liên hệ
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/signup" className="navbar__item cta">
-                <span>Đăng ký</span>
-              </Nav.Link>
+              <div className="navbar__item cta">
+                {token ? (
+                  <Nav.Link as={NavLink} to="/logout">
+                    <span>Đăng xuất</span>
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link as={NavLink} to="/signup">
+                    <span>Đăng ký</span>
+                  </Nav.Link>
+                )}
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
