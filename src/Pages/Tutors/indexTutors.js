@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "../../Style/course.scss";
 import images from "../../Component/imgPerson";
+import { getTutors } from "../../Services/tutorService";
 function Tutors() {
   const [tutors, setTutors] = useState([]);
   const [pageActive, setPageActive] = useState(0);
@@ -13,13 +14,18 @@ function Tutors() {
     });
   };
   useEffect(() => {
-    fetch(`https://tutorprosite-k22.onrender.com/tutors?page=${pageActive}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchTutors = async () => {
+      try {
+        const data = await getTutors(pageActive);
         const tutorsWithImages = assignRandomImages(data.data);
         setTutors(tutorsWithImages);
         setTotalPage(data.pagination.totalPages);
-      });
+      } catch (error) {
+        console.error("There was a problem with fetching tutors:", error);
+      }
+    };
+
+    fetchTutors();
   }, [pageActive]);
 
   const handlePageChange = (newPage) => {

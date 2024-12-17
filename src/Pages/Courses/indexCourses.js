@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../Style/course.scss";
 import images from "../../Component/imgCourse";
+import { getCourses } from "../../Services/courseService";
 function Courses() {
   const [courses, setCourses] = useState([]);
   const [totalPages, setTotalCourses] = useState(0);
@@ -13,13 +14,19 @@ function Courses() {
     });
   };
   useEffect(() => {
-    fetch(`https://tutorprosite-k22.onrender.com/courses?page=${pageActive}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const coursesWithImages = assignRandomImages(data.courses);
-        setCourses(coursesWithImages);
-        setTotalCourses(data.pagination.totalPages);
-      });
+    const fetchCourses = async () => {
+      try {
+        const data = await getCourses(pageActive);
+        setCourses(assignRandomImages(data.courses));
+        setTotalCourses(data.totalPages);
+      } catch (error) {
+        console.error(
+          "There was a problem with the get courses operation:",
+          error
+        );
+      }
+    };
+    fetchCourses();
   }, [pageActive]);
 
   const handlePageChange = (newPage) => {

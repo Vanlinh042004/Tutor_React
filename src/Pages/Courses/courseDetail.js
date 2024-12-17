@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgCourse";
+import { getCourseDetail } from "../../Services/courseService";
 const randomImage = images[Math.floor(Math.random() * images.length)];
 function CourseDetail() {
   const { slug } = useParams();
   const [course, setCourse] = useState([]);
   useEffect(() => {
-    fetch(`https://tutorprosite-k22.onrender.com/courses/${slug}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchCourseDetail = async () => {
+      try {
+        const data = await getCourseDetail(slug);
         setCourse(data.course);
-      });
+      } catch (error) {
+        console.error(
+          "There was a problem with fetching course detail:",
+          error
+        );
+      }
+    };
+
+    fetchCourseDetail();
   }, [slug]);
   return (
     <>
