@@ -2,6 +2,8 @@ import { parse } from "postcss";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgPerson";
+import swal from "@sweetalert/with-react";
+
 import { getDetailTutor } from "../../Services/tutorService";
 const randomImage = images[Math.floor(Math.random() * images.length)];
 function TutorDetail() {
@@ -62,46 +64,59 @@ function TutorDetail() {
                           </a>
                         </p>
                       </div>
+                      <div className="rating ">
+                        <button
+                          className="mt-3 btn btn-primary"
+                          onClick={() => {
+                            const onPick = (value) => {
+                              swal(
+                                "Cảm ơn bạn đã đánh giá!",
+                                `Bạn đã đánh giá ${value}/3 `,
+                                "success"
+                              );
+                            };
+
+                            // Tạo nội dung tùy chỉnh bằng DOM
+                            const wrapper = document.createElement("div");
+                            wrapper.style.display = "flex";
+                            wrapper.style.justifyContent = "center";
+                            wrapper.style.gap = "10px";
+
+                            // Thêm nút emoji
+                            [1, 2, 3].forEach((rating) => {
+                              const btn = document.createElement("button");
+                              btn.style.fontSize = "24px";
+                              btn.style.border = "none";
+                              btn.style.background = "none";
+                              btn.style.cursor = "pointer";
+
+                              btn.textContent =
+                                rating === 1
+                                  ? "😔"
+                                  : rating === 2
+                                  ? "😐"
+                                  : "😊";
+                              btn.addEventListener("click", () =>
+                                onPick(rating)
+                              ); // Xử lý click
+                              wrapper.appendChild(btn);
+                            });
+
+                            // Hiển thị SweetAlert
+                            swal({
+                              text: "Bạn đánh giá như thế nào về gia sư này?",
+                              buttons: {
+                                cancel: "Đóng", // Nút Close
+                              },
+                              content: wrapper, // Gán nội dung tùy chỉnh
+                            });
+                          }}
+                        >
+                          ĐÁNH GIÁ GIA SƯ
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-12 bg-light mt-3 p-5">
-                  <h4 className="mb-4">Đánh giá gia sư</h4>
-                  <form action="#">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Your Name"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Your Email"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <textarea
-                        name=""
-                        id=""
-                        cols={30}
-                        rows={7}
-                        className="form-control"
-                        placeholder="Đánh giá của bạn"
-                        defaultValue={""}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="submit"
-                        defaultValue="Send Message"
-                        className="btn btn-primary py-3 px-5"
-                        value="Gửi đánh giá"
-                      />
-                    </div>
-                  </form>
                 </div>
               </div>
             </div>

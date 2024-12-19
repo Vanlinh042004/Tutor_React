@@ -18,3 +18,16 @@ export const getCourseDetail = async (slug) => {
     throw error;
   }
 };
+// Search
+export const searchCourse = async () => {
+  try {
+    const data = await get("courses/search");
+    return data;
+  } catch (error) {
+    console.error(
+      "There was a problem with the search courses operation:",
+      error
+    );
+    throw error;
+  }
+};

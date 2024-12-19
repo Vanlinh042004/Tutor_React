@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../Style/course.scss";
 import images from "../../Component/imgCourse";
-import { getCourses } from "../../Services/courseService";
+import { getCourses, searchCourse } from "../../Services/courseService";
 function Courses() {
   const [courses, setCourses] = useState([]);
   const [totalPages, setTotalCourses] = useState(0);
   const [pageActive, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
   const assignRandomImages = (courses) => {
     return courses.map((course) => {
       const randomImage = images[Math.floor(Math.random() * images.length)];
@@ -80,6 +81,23 @@ function Courses() {
 
     return pages;
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    //console.log(search);
+    const fetchSearch = async () => {
+      try {
+        const data = await searchCourse();
+        console.log(data);
+      } catch (error) {
+        console.error(
+          "There was a problem with the search courses operation:",
+          error
+        );
+      }
+    };
+  };
+
   return (
     <>
       <section className="ftco-search-course">
@@ -97,12 +115,18 @@ function Courses() {
                     </Link>
                   </div>
 
-                  <form action="#" className="course-search-form">
+                  <form
+                    action="#"
+                    className="course-search-form"
+                    onSubmit={handleSearch}
+                  >
                     <div className="form-group d-flex">
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Nhập lớp học bạn muốn tìm kiếm"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                       />
                       <input
                         type="submit"
@@ -146,7 +170,7 @@ function Courses() {
         <div className="container">
           <div className="row">
             {courses.map((course) => (
-              <div className="col-md-4 d-flex" key="course._id">
+              <div className="col-md-4 d-flex" key={course.slug}>
                 <div className="course align-self-stretch">
                   <a
                     href="#"

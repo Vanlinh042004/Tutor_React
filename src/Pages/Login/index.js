@@ -5,6 +5,7 @@ import { Login } from "../../Services/userService";
 import { setCookie } from "../../Helpers/cookie";
 import { useDispatch } from "react-redux";
 import { checkLogin } from "../../Action/login";
+import swal from "sweetalert";
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -12,17 +13,15 @@ function Signin() {
   const [password, setPassword] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Validate
-    // mandeotv@gmail.com
-    // Submit api
+    // mai.nguyen@example.com
     const data = await Login(email, password);
-    //console.log(data);
     if (data.length !== 0) {
       setCookie("token", data.token, 1);
-      setCookie("email", data.user.email, 1);
-      setCookie("role", data.user.role, 1);
       dispatch(checkLogin(true));
+      swal("Thành công!", "Bạn đã đăng nhập thành công!", "success");
       navigate("/");
+    } else {
+      swal("Lỗi", "Thông tin đăng nhập không hợp lệ", "error");
     }
   };
   return (
