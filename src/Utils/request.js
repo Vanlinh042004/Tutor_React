@@ -1,4 +1,4 @@
-const API_DOMAIN = "https://tutorprosite-k22.onrender.com";
+const API_DOMAIN = "http://localhost:5000";
 // Method get
 export const get = async (url) => {
   const response = await fetch(`${API_DOMAIN}/${url}`);
@@ -14,7 +14,10 @@ export const post = async (url, data) => {
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorMessage = await response.text();
+    throw new Error(
+      `HTTP error! status: ${response.status}, message: ${errorMessage}`
+    );
   }
   return response.json();
 };
