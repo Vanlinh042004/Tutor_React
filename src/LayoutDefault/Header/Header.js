@@ -22,7 +22,7 @@ function Header() {
           </Navbar.Brand>
           <Navbar.Collapse>
             <Nav className="navbar ml-auto">
-              <Nav.Link as={NavLink} to="/" exact className="navbar__item">
+              <Nav.Link as={NavLink} to="/" className="navbar__item">
                 Trang chủ
               </Nav.Link>
               <Nav.Link as={NavLink} to="/about" className="navbar__item">
