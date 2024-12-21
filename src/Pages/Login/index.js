@@ -1,5 +1,6 @@
 import "../../Style/signin.css";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../../Services/userService";
 import { setCookie } from "../../Helpers/cookie";
@@ -64,10 +65,9 @@ function Signin() {
             </label>
 
             <button className="submit">Đăng nhập</button>
-            <a href="#" className="forgot-pass text-decoration-none">
-              {" "}
-              Quên mật khẩu
-            </a>
+            <p className="signin">
+              <Link to="/forget">Quên mật khẩu</Link>
+            </p>
             <div className="socialSign">
               <p className="message">---------- Hoặc ----------</p>
               <div className="social">
