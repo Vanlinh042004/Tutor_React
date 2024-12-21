@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../Style/signup.css";
 import { Register } from "../../Services/userService";
+import swal from "sweetalert";
 function Signup() {
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
@@ -28,15 +29,25 @@ function Signup() {
       role,
       specialization,
       introduction,
+      confirmPassword,
     };
-
+  
     try {
-      const data = await Register(options);
-      console.log(data);
-    } catch (error) {
+      const response = await Register(options);
+      console.log(response);
+      if (response.message === 'Đăng ký thành công.') {
+          navigate("/signin"); // Navigate to the login page after successful registration
+      } else {
+          swal("Lỗi", response.message || "Thông tin đăng ký không hợp lệ", "error");
+      }
+  } catch (error) {
       console.error("There was a problem with the signup operation:", error);
-      throw error;
-    }
+      if (error.response && error.response.data && error.response.data.message) {
+          swal("Lỗi", error.response.data.message, "error");
+      } else {
+          swal("Lỗi", "Đăng ký thất bại", "error");
+      }
+  }
   };
   return (
     <>
