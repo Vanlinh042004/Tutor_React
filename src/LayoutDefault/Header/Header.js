@@ -8,8 +8,12 @@ import { getCookie } from "../../Helpers/cookie";
 import { useSelector } from "react-redux";
 function Header() {
   const token = getCookie("token");
-  const role = getCookie("role");
-  //console.log(token);
+  const fullName = getCookie("name");
+  const name =
+    fullName.split(" ")[fullName.split(" ").length - 1] +
+    " " +
+    fullName.split(" ")[0];
+  //console.log(name);
   const isLogin = useSelector((state) => state.loginReducer);
   //console.log(isLogin);
   return (
@@ -40,7 +44,7 @@ function Header() {
               <div className="navbar__item cta">
                 {token ? (
                   <Nav.Link as={NavLink} to="/logout">
-                    <span>Đăng xuất</span>
+                    <span>{name}</span>
                   </Nav.Link>
                 ) : (
                   <Nav.Link as={NavLink} to="/signup">

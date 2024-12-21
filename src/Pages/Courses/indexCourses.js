@@ -87,7 +87,7 @@ function Courses() {
     //console.log(search);
     const fetchSearch = async () => {
       try {
-        const data = await searchCourse();
+        const data = await searchCourse(search);
         console.log(data);
       } catch (error) {
         console.error(
@@ -96,6 +96,7 @@ function Courses() {
         );
       }
     };
+    fetchSearch();
   };
 
   return (

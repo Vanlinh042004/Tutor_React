@@ -19,7 +19,7 @@ export const getCourseDetail = async (slug) => {
   }
 };
 // Search
-export const searchCourse = async () => {
+export const searchCourse = async (search, page) => {
   try {
     const data = await get("courses/search");
     return data;
