@@ -11,6 +11,8 @@ import RegisterCourse from "./Pages/Courses/RegisterCourse";
 import Signup from "./Pages/Register";
 import Signin from "./Pages/Login";
 import Logout from "./Pages/Logout/indexLogout";
+import Forget from "./Pages/Forget/forget";
+import Reset from "./Pages/Forget/reset";
 function App() {
   return (
     <>
@@ -27,6 +29,8 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="forget" element={<Forget />} />
+          <Route path="reset-password" element={<Reset />} />
         </Route>
       </Routes>
       {/* <TutorDetail /> */}
