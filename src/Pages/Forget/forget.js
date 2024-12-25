@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { ForgotPassword, VerifyReset } from "../../Services/userService";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -11,14 +11,14 @@ const ForgetPassword = () => {
   const handleSendCode = async () => {
     if (email) {
       try {
-        const response = await fetch("http://localhost:3010/forgot-password", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        });
-
+        // const response = await fetch("http://localhost:3010/forgot-password", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ email }),
+        // });
+        const response = await ForgotPassword(email);
         if (response.ok) {
           const data = await response.json();
           console.log("Mã xác thực đã được gửi:", data.message);
@@ -42,14 +42,14 @@ const ForgetPassword = () => {
   const handleVerifyCode = async () => {
     if (code) {
       try {
-        const response = await fetch("http://localhost:3010/verify-Reset", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, resetToken: code }), // Sử dụng email đã lưu
-        });
-
+        // const response = await fetch("http://localhost:3010/verify-Reset", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ email, resetToken: code }), // Sử dụng email đã lưu
+        // });
+        const response = await VerifyReset(email, code);
         if (response.ok) {
           navigate("/reset-password"); // Chuyển đến trang đặt lại mật khẩu
         } else {

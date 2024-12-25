@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "../../Style/course.scss";
 import images from "../../Component/imgPerson";
-import { getTutors } from "../../Services/tutorService";
+import {
+  getTutors,
+  searchTutor,
+  filterTutor,
+} from "../../Services/tutorService";
+import swal from "sweetalert";
+
 function Tutors() {
   const [tutors, setTutors] = useState([]);
   const [pageActive, setPageActive] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("");
   const assignRandomImages = (tutors) => {
     return tutors.map((tutor) => {
       const randomImage = images[Math.floor(Math.random() * images.length)];
@@ -16,22 +24,49 @@ function Tutors() {
   useEffect(() => {
     const fetchTutors = async () => {
       try {
-        const data = await getTutors(pageActive);
-        const tutorsWithImages = assignRandomImages(data.data);
-        setTutors(tutorsWithImages);
-        setTotalPage(data.pagination.totalPages);
+        if (search.trim()) {
+          const data = await searchTutor(search);
+          //console.log(data);
+          if (data.tutors.length === 0) {
+            swal("Không tìm thấy kết quả nào", "Vui lòng thử lại", "error");
+          }
+          const tutorsWithImages = assignRandomImages(data.tutors);
+          setTutors(tutorsWithImages);
+          setTotalPage(data.pagination.totalPages);
+        } else if (filter.trim()) {
+          const data = await filterTutor(filter);
+          const tutorsWithImages = assignRandomImages(data.tutors);
+          setTutors(tutorsWithImages);
+          setTotalPage(data.pagination.totalPages);
+        } else {
+          const data = await getTutors(pageActive);
+          const tutorsWithImages = assignRandomImages(data.data);
+          setTutors(tutorsWithImages);
+          setTotalPage(data.pagination.totalPages);
+        }
       } catch (error) {
         console.error("There was a problem with fetching tutors:", error);
       }
     };
 
     fetchTutors();
-  }, [pageActive]);
+  }, [pageActive, search, filter]);
 
   const handlePageChange = (newPage) => {
     setPageActive(newPage);
   };
-
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setFilter("");
+    setSearch(e.target[0].value);
+    //console.log("search", search);
+  };
+  const handleFilter = async (e) => {
+    e.preventDefault();
+    setSearch("");
+    //console.log(e.target[0].value);
+    setFilter(e.target[0].value);
+  };
   const renderPagination = () => {
     const pages = [];
     const maxPagesToShow = 5;
@@ -52,17 +87,6 @@ function Tutors() {
           >
             {i + 1}
           </button>
-        </li>
-      );
-    }
-
-    if (startPage > 0) {
-      pages.unshift(
-        <li
-          key="start-ellipsis"
-          className="pagination__item pagination__item--disabled"
-        >
-          <span className="pagination__link">...</span>
         </li>
       );
     }
@@ -90,7 +114,11 @@ function Tutors() {
               <div className="full-wrap d-flex ">
                 <div className="one-third order-last p-5">
                   <h3 className=" text-center mb-4">Bạn muốn tìm kiếm ?</h3>
-                  <form action="#" className="course-search-form">
+                  <form
+                    action="#"
+                    className="course-search-form"
+                    onSubmit={handleSearch}
+                  >
                     <div className="form-group d-flex">
                       <input
                         type="text"
@@ -104,16 +132,19 @@ function Tutors() {
                       />
                     </div>
                   </form>
-                  <form action="#" className="course-search-form">
+                  <form
+                    action="#"
+                    className="course-search-form"
+                    onSubmit={handleFilter}
+                  >
                     <div className="form-group d-flex">
                       <select className="form-control" defaultValue="">
                         <option value="" disabled>
-                          Chọn Gia sư
+                          Chọn môn học
                         </option>
-                        <option value="Female">Nam</option>
-                        <option value="Male">Nữ</option>
-                        <option value="english">Tiếng Anh</option>
-                        <option value="science">Khoa học</option>
+                        <option value="Tiếng Anh">Tiếng Anh</option>
+                        <option value="Toán học">Toán học</option>
+                        <option value="Lịch sử">Lịch sử</option>
                       </select>
                       <input
                         type="submit"
@@ -152,7 +183,7 @@ function Tutors() {
                     <div className="info ml-4">
                       <h3>
                         <Link
-                          to={`/tutors/${tutor.slug}`}
+                          to={`/tutor/${tutor.slug}`}
                           className="text-decoration-none text-black"
                         >
                           {tutor.name}

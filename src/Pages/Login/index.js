@@ -15,19 +15,24 @@ function Signin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     // mai.nguyen@example.com
-    const data = await Login(email, password);
-    if (data.length !== 0) {
-      setCookie("token", data.token, 1);
-      dispatch(checkLogin(true));
-      swal("Thành công!", "Bạn đã đăng nhập thành công!", "success");
-      navigate("/");
-    } else {
+    try {
+      const data = await Login(email, password);
+      if (data.length !== 0) {
+        setCookie("token", data.token, 1);
+        setCookie("name", data.name, 1);
+        dispatch(checkLogin(true));
+        swal("Thành công!", "Bạn đã đăng nhập thành công!", "success");
+        navigate("/");
+      } else {
+        swal("Lỗi", "Thông tin đăng nhập không hợp lệ", "error");
+      }
+    } catch (err) {
       swal("Lỗi", "Thông tin đăng nhập không hợp lệ", "error");
     }
   };
   return (
     <>
-      <div className="signIn d-flex">
+      <div className="signIn d-flex mt-4">
         <div className="signUp__img">
           <img src={require("../../images/course-1.jpg")}></img>
         </div>

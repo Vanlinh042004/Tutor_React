@@ -11,7 +11,7 @@ function Logout() {
   useEffect(() => {
     dispatch(checkLogin(false));
     swal("Thành công!", "Bạn đã đăng xuất thành công!", "success");
-    navigate("/signin");
+    navigate("/register");
   }, []);
 
   return;
