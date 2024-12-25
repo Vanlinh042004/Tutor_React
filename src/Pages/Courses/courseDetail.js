@@ -38,19 +38,37 @@ function CourseDetail() {
                     />
                     <div className="text">
                       <h3>
-                        {course.subject} {course.grade}
+                        {course.subject} - Lớp {course.grade}
                       </h3>
                       <span className="position">
                         Lương ${course.salary} - Phí ${course.fee}
                       </span>
                       <p>
-                        {course.teachingMode} - {course.schedule}
+                        <b>Hình thức: </b>
+                        {course.teachingMode}
                       </p>
-                      <p>Gia sư {course.sexTutor}</p>
-                      <p>{course.address}</p>
-                      <p>{course.studentInfo}</p>
-                      <p>{course.requirements}</p>
-                      <p>{course.contact}</p>
+                      <p>
+                        <b>Thời gian: </b> {course.schedule}
+                      </p>
+                      <p>
+                        <b>Giới tính: </b> {course.sexTutor}
+                      </p>
+                      <p>
+                        <b>Địa chỉ: </b>
+                        {course.address}
+                      </p>
+                      <p>
+                        <b>Thông tin: </b>
+                        {course.studentInfo}
+                      </p>
+                      <p>
+                        <b>Yêu cầu: </b>
+                        {course.requirements}
+                      </p>
+                      <p>
+                        <b>Liên hệ: </b>
+                        {course.contact}
+                      </p>
                       <div className="mt-4"></div>
                     </div>
                   </div>

@@ -19,9 +19,9 @@ export const getCourseDetail = async (slug) => {
   }
 };
 // Search
-export const searchCourse = async (search, page) => {
+export const searchCourse = async (search) => {
   try {
-    const data = await get("courses/search");
+    const data = await get(`courses?keyword=${search}`);
     return data;
   } catch (error) {
     console.error(

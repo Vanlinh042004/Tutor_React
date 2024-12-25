@@ -3,19 +3,35 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { getCookie } from "../../Helpers/cookie";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { parseJwt } from "../../Helpers/JWT";
+
 function Header() {
+  const [showLinks, setShowLinks] = useState(false);
+  const location = useLocation();
+  let fullName = "";
+  let nameUser = "";
   const token = getCookie("token");
-  const fullName = getCookie("name");
-  const name =
-    fullName.split(" ")[fullName.split(" ").length - 1] +
-    " " +
-    fullName.split(" ")[0];
-  //console.log(name);
+  if (token) {
+    fullName = parseJwt(token).name;
+    nameUser =
+      fullName.split(" ")[fullName.split(" ").length - 1] +
+      " " +
+      fullName.split(" ")[0];
+  }
+
   const isLogin = useSelector((state) => state.loginReducer);
-  //console.log(isLogin);
+  const toggleLinks = () => {
+    setShowLinks(!showLinks); // Chuyển trạng thái ẩn/hiện
+  };
+  useEffect(() => {
+    if (location.pathname === "/profile" || location.pathname === "/logout") {
+      setShowLinks(false);
+    }
+  }, [location.pathname]);
   return (
     <>
       <Navbar variant="light" expand="lg" fixed="top">
@@ -43,11 +59,23 @@ function Header() {
               </Nav.Link>
               <div className="navbar__item cta">
                 {token ? (
-                  <Nav.Link as={NavLink} to="/logout">
-                    <span>{name}</span>
-                  </Nav.Link>
+                  <Nav className=" user">
+                    <span onClick={toggleLinks} className="user__name">
+                      {nameUser}
+                    </span>
+                    {showLinks && (
+                      <div className="user__links">
+                        <NavLink to="/profile" className="user__link">
+                          Hồ sơ
+                        </NavLink>
+                        <NavLink to="/logout" className="user__link">
+                          Đăng xuất
+                        </NavLink>
+                      </div>
+                    )}
+                  </Nav>
                 ) : (
-                  <Nav.Link as={NavLink} to="/signup">
+                  <Nav.Link as={NavLink} to="/register">
                     <span>Đăng ký</span>
                   </Nav.Link>
                 )}

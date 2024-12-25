@@ -31,27 +31,35 @@ function Signup() {
       introduction,
       confirmPassword,
     };
-  
+
     try {
       const response = await Register(options);
-      console.log(response);
-      if (response.message === 'Đăng ký thành công.') {
-          navigate("/signin"); // Navigate to the login page after successful registration
+      //console.log(response);
+      if (response.message === "Đăng ký thành công.") {
+        navigate("/signin"); // Navigate to the login page after successful registration
       } else {
-          swal("Lỗi", response.message || "Thông tin đăng ký không hợp lệ", "error");
+        swal(
+          "Lỗi",
+          response.message || "Thông tin đăng ký không hợp lệ",
+          "error"
+        );
       }
-  } catch (error) {
+    } catch (error) {
       console.error("There was a problem with the signup operation:", error);
-      if (error.response && error.response.data && error.response.data.message) {
-          swal("Lỗi", error.response.data.message, "error");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        swal("Lỗi", error.response.data.message, "error");
       } else {
-          swal("Lỗi", "Đăng ký thất bại", "error");
+        swal("Lỗi", "Đăng ký thất bại", "error");
       }
-  }
+    }
   };
   return (
     <>
-      <div className="signUp d-flex">
+      <div className="signUp d-flex mt-4">
         <div className="signUp__img">
           <img src={require("../../images/course-1.jpg")} alt="Signup" />
         </div>
@@ -167,7 +175,7 @@ function Signup() {
 
             <button className="submit">Đăng ký</button>
             <p className="signin">
-              Bạn đã có tài khoản ? <Link to="/signin">Đăng nhập</Link>
+              Bạn đã có tài khoản ? <Link to="/login">Đăng nhập</Link>
             </p>
           </form>
         </div>

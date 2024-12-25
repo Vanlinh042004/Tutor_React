@@ -32,7 +32,7 @@ function Signin() {
   };
   return (
     <>
-      <div className="signIn d-flex">
+      <div className="signIn d-flex mt-4">
         <div className="signUp__img">
           <img src={require("../../images/course-1.jpg")}></img>
         </div>

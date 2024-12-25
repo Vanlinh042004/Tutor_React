@@ -16,5 +16,12 @@ const Login = async (email, password) => {
 const Register = async (options) => {
   return await post("register", options);
 };
-
-export { Login, Register };
+// Forgot Password
+const ForgotPassword = async (email) => {
+  return await post("forgot-password", { email });
+};
+// Verify Reset
+const VerifyReset = async (email, resetToken) => {
+  return await post("verify-Reset", { email, resetToken });
+};
+export { Login, Register, ForgotPassword, VerifyReset };

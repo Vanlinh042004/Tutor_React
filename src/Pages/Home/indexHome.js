@@ -32,8 +32,8 @@ function Home() {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="overlay" />
-        <div className="container">
+        <div className="overlay " />
+        <div className="container mt-4">
           <div
             className="row no-gutters slider-text align-items-center justify-content-center"
             data-scrollax-parent="true"
