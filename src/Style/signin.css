@@ -1,3 +1,4 @@
+/* Giữ nguyên CSS hiện tại */
 .signIn {
   justify-content: center;
   align-items: center;
@@ -13,7 +14,7 @@
   padding: 20px;
   border-radius: 20px;
   position: relative;
-  margin-left: 100px;
+  margin: 0 auto;
 }
 
 .title {
@@ -152,24 +153,87 @@
   align-items: center;
   z-index: 1000; /* Đảm bảo modal hiển thị trên tất cả các phần tử khác */
 }
+
 .forgot-pass,
 .socialSign {
   text-align: center;
 }
+
 .social {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
+
 .social__icon {
   border: 1px solid #eee6e67a;
   padding: 5px 20px;
   font-size: 20px;
   color: rgb(20, 20, 21);
 }
+
 .social__icon:hover {
   background-color: #429cd37a;
 }
+
 .social__icon span {
   color: #000;
+}
+
+/* Responsive: Dành cho màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .signIn {
+    flex-direction: column;
+    height: auto;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+
+  .form {
+    margin-right: 0;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .title {
+    font-size: 36px;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .signUp__img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .submit {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}
+
+/* Responsive: Dành cho màn hình nhỏ hơn 480px */
+@media (max-width: 480px) {
+  .title {
+    font-size: 30px;
+  }
+
+  .form {
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .submit {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .message {
+    font-size: 12px;
+  }
 }

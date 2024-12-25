@@ -1,18 +1,19 @@
 nav {
   background: #6c717a45;
+  padding: 20px 0 !important;
 }
 
 .navbar {
   font-size: 20px;
   line-height: 1.8;
   font-weight: 400;
+
   &__item {
     margin-left: 15px;
     &.cta {
       border-radius: 30px;
       border: 1px solid #167ce9;
       background: #167ce9;
-      padding: 10px;
     }
     &.active {
       color: #167ce9 !important;
@@ -24,6 +25,7 @@ nav {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  margin: 5px;
 
   &__name {
     padding: 5px 10px;

@@ -18,10 +18,11 @@ function Footer() {
         <div className="overlay"></div>
         <div className="container">
           <div className="row mb-5">
-            <div className="col-md-3">
+            <div className="col-lg-3 col-md-12">
               <h2>
                 <Link className="navbar-brand" to="/">
-                  <i className="fas fa-university"></i> DOM DOM <br />
+                  <i className="fas fa-university"></i> DOM CON
+                  <br />
                   <small>Gia sư</small>
                 </Link>
               </h2>
@@ -47,7 +48,7 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-3 col-md-12">
               <h2 className="footer__h2--color">Văn phòng</h2>
               <div className="mt-3">
                 <p>
@@ -56,7 +57,7 @@ function Footer() {
                 </p>
               </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-3 col-md-12">
               <h2 className="footer__h2--color">Giáo dục</h2>
               <ul className="list-unstyled">
                 <li>
@@ -98,7 +99,7 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-md-3">
+            <div className="col-lg-3 col-md-12">
               <h2 className="footer__h2--color">Đặt câu hỏi?</h2>
               <ul>
                 <li>
