@@ -8,7 +8,7 @@
     - Lấy thông tin user điền vào profile cũ
     - Sữa lại rồi load thông tin mới nhé
 - Đánh giá gia sư: Sao (Lĩnh)
-- Chỉnh lại reponsive (Lĩnh)
+- Chỉnh lại reponsive (Lĩnh) (rồi)
 - Thêm toast đăng nhập thành công (Lĩnh: rồi)
 - Quên mật khẩu (Mạnh làm xong rồi cả FE cả BE)
   - Nhập email
