@@ -21,7 +21,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await get("profile");
+        const data = await get("profile",true);
         setProfile({
           fullName: data["Họ và Tên"],
           role: data["Vai trò"],
