@@ -11,7 +11,7 @@ export const get = async (url) => {
   }
   const response = await fetch(`${API_DOMAIN}/${url}`, {
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.json();
@@ -24,7 +24,7 @@ export const post = async (url, data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -44,7 +44,7 @@ export const put = async (url, data) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -56,7 +56,7 @@ export const remove = async (url) => {
   const response = await fetch(`${API_DOMAIN}/${url}`, {
     method: "DELETE",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.json();

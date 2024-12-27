@@ -34,7 +34,11 @@ function TutorDetail() {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${randomImage})`,
+                        backgroundImage: `url(${
+                          tutor.avatar
+                            ? tutor.avatar
+                            : require("../../images/image_default.png")
+                        })`,
                         height: "400px",
                       }}
                     />
@@ -50,6 +54,11 @@ function TutorDetail() {
                       <p className="text__address">
                         <b>Địa chỉ: </b>
                         {tutor.address}
+                      </p>
+
+                      <p className="text__intro">
+                        <b>Giới thiệu: </b>
+                        {tutor.introduction}
                       </p>
                       <p className="text_rating">
                         <b>Đánh giá: </b>
@@ -77,11 +86,6 @@ function TutorDetail() {
                             </span>
                           );
                         })}
-                      </p>
-
-                      <p className="text__intro">
-                        <b>Giới thiệu: </b>
-                        {tutor.introduction}
                       </p>
                       <div className="mt-4">
                         <h4>Social Link</h4>
@@ -133,6 +137,7 @@ function TutorDetail() {
                                 border: "none",
                                 background: "none",
                                 cursor: "pointer",
+                                color: "gold",
                               }}
                               onClick={() => handleClick(rating)}
                             >
