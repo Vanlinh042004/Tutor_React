@@ -12,16 +12,13 @@ import { parseJwt } from "../../Helpers/JWT";
 function Header() {
   const [showLinks, setShowLinks] = useState(false);
   const location = useLocation();
-  let fullName = "";
-  let nameUser = "";
   const token = getCookie("token");
-  if (token) {
-    fullName = parseJwt(token).name;
-    nameUser =
-      fullName.split(" ")[fullName.split(" ").length - 1] +
-      " " +
-      fullName.split(" ")[0];
-  }
+  const fullName = getCookie("name");
+  const nameUser =
+    fullName.split(" ")[fullName.split(" ").length - 1] +
+    " " +
+    fullName.split(" ")[0];
+  console.log(nameUser);
 
   const isLogin = useSelector((state) => state.loginReducer);
   const toggleLinks = () => {
@@ -40,8 +37,9 @@ function Header() {
             <i className="fas fa-university"></i> Dom Con <br />
             <small>Gia sư</small>
           </Navbar.Brand>
-          <Navbar.Collapse>
-            <Nav className="navbar ml-auto">
+          <Navbar.Toggle aria-controls="navbar-nav" />
+          <Navbar.Collapse id="navbar-nav">
+            <Nav className="ml-auto">
               <Nav.Link as={NavLink} to="/" className="navbar__item">
                 Trang chủ
               </Nav.Link>
@@ -59,7 +57,7 @@ function Header() {
               </Nav.Link>
               <div className="navbar__item cta">
                 {token ? (
-                  <Nav className=" user">
+                  <Nav className="user">
                     <span onClick={toggleLinks} className="user__name">
                       {nameUser}
                     </span>

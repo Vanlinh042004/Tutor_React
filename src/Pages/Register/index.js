@@ -34,7 +34,7 @@ function Signup() {
 
     try {
       const response = await Register(options);
-      //console.log(response);
+      console.log(response);
       if (response.message === "Đăng ký thành công.") {
         navigate("/signin"); // Navigate to the login page after successful registration
       } else {
@@ -60,7 +60,7 @@ function Signup() {
   return (
     <>
       <div className="signUp d-flex mt-4">
-        <div className="signUp__img">
+        <div className="signUp__img mr-5 ml-5">
           <img src={require("../../images/course-1.jpg")} alt="Signup" />
         </div>
         <div className="signUp__form">
