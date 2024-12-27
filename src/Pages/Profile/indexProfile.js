@@ -1,19 +1,46 @@
 import "../../Style/user-profile.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../Helpers/cookie";
+import { get } from "../../Utils/request";
+
 function Profile() {
-  const fullName = getCookie("name");
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    fullName: "Amelia",
-    role: "Designer",
-    birthDate: "5/3/1980",
-    phone: "0123456789",
-    email: "amelia@example.com",
-    address: "123 Street, City",
+    fullName: "",
+    role: "",
+    birthDate: "",
+    phone: "",
+    email: "",
+    address: "",
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await get("profile");
+        setProfile({
+          fullName: data["Họ và Tên"],
+          role: data["Vai trò"],
+          birthDate: data["Ngày sinh"],
+          phone: data["Số điện thoại"],
+          email: data["Email"],
+          address: data["Địa chỉ"],
+        });
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        setError("Failed to load profile.");
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({
@@ -21,6 +48,9 @@ function Profile() {
       [name]: value,
     }));
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -33,7 +63,7 @@ function Profile() {
               className="profile__info-avatar"
             />
             <div>
-              <h3>{fullName}</h3>
+              <h3>{profile.fullName}</h3>
               <div className="profile__header">
                 <button
                   onClick={() => setShowChangePassword(true)}
@@ -52,12 +82,12 @@ function Profile() {
                 <input
                   type="text"
                   name="fullName"
-                  value={fullName}
+                  value={profile.fullName}
                   onChange={handleInputChange}
                   className="profile__details__input"
                 />
               ) : (
-                <p className="profile__details__text">{fullName}</p>
+                <p className="profile__details__text">{profile.fullName}</p>
               )}
             </div>
             <div className="profile__details__item">
@@ -122,7 +152,6 @@ function Profile() {
                 <input
                   type="text"
                   name="address"
-                  s
                   value={profile.address}
                   onChange={handleInputChange}
                   className="profile__details__input"
