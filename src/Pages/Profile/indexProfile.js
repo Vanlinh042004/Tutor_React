@@ -21,7 +21,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await get("profile");
+        const data = await get("profile", true);
         setProfile({
           fullName: data["Họ và Tên"],
           role: data["Vai trò"],
@@ -104,20 +104,7 @@ function Profile() {
                 <p className="profile__details__text">{profile.role}</p>
               )}
             </div>
-            <div className="profile__details__item">
-              <label className="profile__details__label">Ngày sinh:</label>
-              {isEditing ? (
-                <input
-                  type="date"
-                  name="birthDate"
-                  value={profile.birthDate}
-                  onChange={handleInputChange}
-                  className="profile__details__input"
-                />
-              ) : (
-                <p className="profile__details__text">{profile.birthDate}</p>
-              )}
-            </div>
+
             <div className="profile__details__item">
               <label className="profile__details__label">Số điện thoại:</label>
               {isEditing ? (

@@ -2,62 +2,88 @@ import { getCookie } from "../Helpers/cookie";
 
 const API_DOMAIN = "http://localhost:5000";
 
-// Method get with Authorization header
-export const get = async (url) => {
-  const token = getCookie("token");
-  console.log("Retrieved token:", token); // Debug log
-  if (!token) {
-    throw new Error("No token found. Please log in.");
+// Helper function to build headers
+const buildHeaders = (includeAuth) => {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (includeAuth) {
+    const token = getCookie("token");
+    console.log("Retrieved token:", token); // Debug log
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
   }
-  const response = await fetch(`${API_DOMAIN}/${url}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.json();
+
+  return headers;
 };
 
-// Method post
-export const post = async (url, data) => {
-  const token = getCookie("token");
+// Method get with optional Authorization header
+export const get = async (url, includeAuth = false) => {
   const response = await fetch(`${API_DOMAIN}/${url}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
+    headers: buildHeaders(includeAuth),
   });
+
   if (!response.ok) {
     const errorMessage = await response.text();
     throw new Error(
       `HTTP error! status: ${response.status}, message: ${errorMessage}`
     );
   }
+
   return response.json();
 };
 
-// Method put
-export const put = async (url, data) => {
-  const token = getCookie("token");
+// Method post with optional Authorization header
+export const post = async (url, data, includeAuth = false) => {
   const response = await fetch(`${API_DOMAIN}/${url}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    method: "POST",
+    headers: buildHeaders(includeAuth),
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(
+      `HTTP error! status: ${response.status}, message: ${errorMessage}`
+    );
+  }
+
   return response.json();
 };
 
-export const remove = async (url) => {
-  const token = getCookie("token");
+// Method put with optional Authorization header
+export const put = async (url, data, includeAuth = false) => {
+  const response = await fetch(`${API_DOMAIN}/${url}`, {
+    method: "PUT",
+    headers: buildHeaders(includeAuth),
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(
+      `HTTP error! status: ${response.status}, message: ${errorMessage}`
+    );
+  }
+
+  return response.json();
+};
+
+// Method remove with optional Authorization header
+export const remove = async (url, includeAuth = false) => {
   const response = await fetch(`${API_DOMAIN}/${url}`, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: buildHeaders(includeAuth),
   });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(
+      `HTTP error! status: ${response.status}, message: ${errorMessage}`
+    );
+  }
+
   return response.json();
 };

@@ -2,10 +2,10 @@ import { parse } from "postcss";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgPerson";
+import "../../Style/tutor_detail.scss";
 import swal from "@sweetalert/with-react";
 
 import { getDetailTutor } from "../../Services/tutorService";
-const randomImage = images[Math.floor(Math.random() * images.length)];
 function TutorDetail() {
   const rating = 3.5;
   const [selectedRating, setSelectedRating] = useState(0);
@@ -22,6 +22,44 @@ function TutorDetail() {
     };
     fetchTutor();
   });
+  const [showModal, setShowModal] = useState(false);
+  const modalOverlayStyle = {};
+
+  const modalContentStyle = {
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "8px",
+    width: "300px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+
+  const overallRating = 3.1;
+  const totalReviews = 10;
+  const reviews = [
+    { name: "Minhhhh", rating: 3, comment: "Minh ket noi di nhe" },
+    { name: "Linhhhhh", rating: 4, comment: "Minh làm lẹ đi nhe" },
+    { name: "Manhhhhh", rating: 3, comment: "Minh hãy cố gắng làm đi nhé" },
+  ];
+
+  const ratingBreakdown = {
+    1: 2,
+    2: 1,
+    3: 3,
+    4: 2,
+    5: 2,
+  };
+
+  // Function to render stars
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <i
+        key={index}
+        className={`fa-solid fa-star ${
+          index < rating ? "checked" : "unchecked"
+        }`}
+      ></i>
+    ));
+  };
   return (
     <>
       <section className="ftco-section">
@@ -29,7 +67,7 @@ function TutorDetail() {
           <div className="row justify-content-center">
             <div className="col-md-10">
               <div className="row">
-                <div className="col-md-12 mb-5">
+                <div className="col-md-12">
                   <div className="teacher-details d-md-flex">
                     <div
                       className="img"
@@ -60,33 +98,6 @@ function TutorDetail() {
                         <b>Giới thiệu: </b>
                         {tutor.introduction}
                       </p>
-                      <p className="text_rating">
-                        <b>Đánh giá: </b>
-                        {Array.from({ length: 5 }).map((_, index) => {
-                          const fullStar = index + 1 <= tutor.rating; // Sáng đủ sao
-                          const halfStar =
-                            tutor.rating > index && tutor.rating < index + 1; // Sáng nửa sao
-
-                          return (
-                            <span
-                              key={index}
-                              style={{
-                                color: "gold",
-                                fontSize: "23px",
-                                marginRight: "5px",
-                              }}
-                            >
-                              {fullStar ? (
-                                <i className="fas fa-star"></i> // Sao đầy
-                              ) : halfStar ? (
-                                <i className="fas fa-star-half-alt"></i> // Sao nửa
-                              ) : (
-                                <i className="far fa-star"></i> // Sao trống
-                              )}
-                            </span>
-                          );
-                        })}
-                      </p>
                       <div className="mt-4">
                         <h4>Social Link</h4>
                         <p className="ftco-social d-flex">
@@ -113,7 +124,7 @@ function TutorDetail() {
                     </div>
                   </div>
 
-                  <div className="col-md-12 bg-light mt-3 p-5">
+                  {/* <div className="col-md-12 bg-light mt-3 p-5">
                     <h2 className="mb-4">Viết đánh giá</h2>
                     <div className="rating mb-5">
                       <div
@@ -137,7 +148,6 @@ function TutorDetail() {
                                 border: "none",
                                 background: "none",
                                 cursor: "pointer",
-                                color: "gold",
                               }}
                               onClick={() => handleClick(rating)}
                             >
@@ -174,11 +184,96 @@ function TutorDetail() {
                         />
                       </div>
                     </form>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="ftco-section-review">
+        <div className="review-section">
+          <div className="overall-section">
+            <div className="overall-box">
+              <h2>Overall</h2>
+              <h2 className="overall-rating">{overallRating}</h2>
+              <p>({totalReviews} Reviews)</p>
+            </div>
+            <div className="rating-breakdown">
+              <ul>
+                {Object.entries(ratingBreakdown).map(([key, value]) => (
+                  <li key={key}>
+                    <span className="stars">{renderStars(parseInt(key))}</span>
+                    {value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="">
+            {" "}
+            <button
+              className="btn btn-primary py-3 px-5 btn-review "
+              onClick={() => setShowModal(true)}
+            >
+              Viết đánh giá
+            </button>
+          </div>
+
+          <div className="review-list">
+            {reviews.map((review, index) => (
+              <div className="review-item" key={index}>
+                <h5>{review.name}</h5>
+                <p className="stars">{renderStars(review.rating)}</p>
+                <p>{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          {/* Modal */}
+          {showModal && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                {/* Chọn số sao */}
+                <div className="rating-container">
+                  {[1, 2, 3, 4, 5].map((rating) => (
+                    <button
+                      key={rating}
+                      className="star-btn"
+                      onClick={() => handleClick(rating)}
+                    >
+                      {rating <= selectedRating ? "★" : "☆"}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Nội dung đánh giá */}
+                <textarea
+                  className="modal-textarea"
+                  placeholder="Nhập nội dung đánh giá"
+                  rows={4}
+                />
+
+                {/* Nút hành động */}
+                <div className="modal-actions">
+                  <button
+                    className="btn cancel"
+                    onClick={() => setShowModal(false)}
+                  >
+                    HỦY
+                  </button>
+                  <button
+                    className="btn save"
+                    onClick={() => setShowModal(false)}
+                  >
+                    ĐÁNH GIÁ
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>
