@@ -15,12 +15,7 @@ function Tutors() {
   const [totalPage, setTotalPage] = useState(0);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
-  const assignRandomImages = (tutors) => {
-    return tutors.map((tutor) => {
-      const randomImage = images[Math.floor(Math.random() * images.length)];
-      return { ...tutor, image: randomImage };
-    });
-  };
+
   useEffect(() => {
     const fetchTutors = async () => {
       try {
@@ -30,18 +25,16 @@ function Tutors() {
           if (data.tutors.length === 0) {
             swal("Không tìm thấy kết quả nào", "Vui lòng thử lại", "error");
           }
-          const tutorsWithImages = assignRandomImages(data.tutors);
-          setTutors(tutorsWithImages);
+          setTutors(data.data);
           setTotalPage(data.pagination.totalPages);
         } else if (filter.trim()) {
           const data = await filterTutor(filter);
-          const tutorsWithImages = assignRandomImages(data.tutors);
-          setTutors(tutorsWithImages);
+          setTutors(data.tutors);
           setTotalPage(data.pagination.totalPages);
         } else {
           const data = await getTutors(pageActive);
-          const tutorsWithImages = assignRandomImages(data.data);
-          setTutors(tutorsWithImages);
+          console.log(data.data);
+          setTutors(data.data);
           setTotalPage(data.pagination.totalPages);
         }
       } catch (error) {
@@ -177,7 +170,11 @@ function Tutors() {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(${tutor.image})`,
+                        backgroundImage: `url(${
+                          tutor.avatar
+                            ? tutor.avatar
+                            : require("../../images/image_default.png")
+                        })`,
                       }}
                     />
                     <div className="info ml-4">

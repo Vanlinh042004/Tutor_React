@@ -7,7 +7,7 @@ const buildHeaders = (includeAuth) => {
   const headers = {
     "Content-Type": "application/json",
   };
-  
+
   if (includeAuth) {
     const token = getCookie("token");
     console.log("Retrieved token:", token); // Debug log
@@ -31,7 +31,7 @@ export const get = async (url, includeAuth = false) => {
       `HTTP error! status: ${response.status}, message: ${errorMessage}`
     );
   }
-  
+
   return response.json();
 };
 
