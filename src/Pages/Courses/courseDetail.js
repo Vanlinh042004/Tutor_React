@@ -23,9 +23,13 @@ function CourseDetail() {
     fetchCourseDetail();
   }, [slug]);
   const handleClick = async () => {
-    // const courseData = await post("courses/register-Course", true, course._id);
-    // console.log(courseData);
-  };
+    try {
+        const courseData = await post("courses/register-Course", { courseId: course._id }, true);
+        console.log(courseData);
+    } catch (error) {
+        console.error(error);
+    }
+};
   return (
     <>
       <section className="ftco-section">
