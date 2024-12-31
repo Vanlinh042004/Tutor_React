@@ -197,7 +197,7 @@ function Courses() {
                   />
                   <div className="text p-4">
                     <p className="category">
-                      Lương: <span className="price">${course.salary}</span>
+                      Lương: <span className="price">{course.salary}</span>
                     </p>
                     <h3 className="mb-3">
                       <p className="text-decoration-none">
@@ -219,7 +219,7 @@ function Courses() {
                         <Link to={`${course.slug}`} className="btn btn-primary">
                           Xem chi tiết
                         </Link>
-                        <Link to="" className="btn btn-danger">
+                        <Link to={`${course.slug}`} className="btn btn-danger">
                           Nhận lớp
                         </Link>
                       </p>

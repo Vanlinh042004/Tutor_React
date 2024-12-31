@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgCourse";
 import { getCourseDetail } from "../../Services/courseService";
+import { post } from "../../Utils/request";
 const randomImage = images[Math.floor(Math.random() * images.length)];
 function CourseDetail() {
   const { slug } = useParams();
@@ -21,6 +22,10 @@ function CourseDetail() {
 
     fetchCourseDetail();
   }, [slug]);
+  const handleClick = async () => {
+    // const courseData = await post("courses/register-Course", true, course._id);
+    // console.log(courseData);
+  };
   return (
     <>
       <section className="ftco-section">
@@ -41,11 +46,11 @@ function CourseDetail() {
                         {course.subject} - Lớp {course.grade}
                       </h3>
                       <span className="position">
-                        Lương ${course.salary} - Phí ${course.fee}
+                        Lương: {course.salary} - Phí: {course.fee}
                       </span>
                       <p>
                         <b>Hình thức: </b>
-                        {course.teachingMode}
+                        Dạy {course.teachingMode}
                       </p>
                       <p>
                         <b>Thời gian: </b> {course.schedule}
@@ -69,6 +74,9 @@ function CourseDetail() {
                         <b>Liên hệ: </b>
                         {course.contact}
                       </p>
+                      <button className="btn btn-danger" onClick={handleClick}>
+                        Đăng ký nhận lớp
+                      </button>
                       <div className="mt-4"></div>
                     </div>
                   </div>
