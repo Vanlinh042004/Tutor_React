@@ -43,7 +43,7 @@ export const routes = [
         element: <Tutors />,
       },
       {
-        path: "tutor/:slug",
+        path: "tutors/:slug",
         element: <TutorDetail />,
       },
       {

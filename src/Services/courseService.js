@@ -1,5 +1,5 @@
-import { get } from "../Utils/request";
-
+import { get, post } from "../Utils/request";
+// get courses
 export const getCourses = async (page) => {
   try {
     const data = await get(`courses?page=${page}`);
@@ -9,6 +9,7 @@ export const getCourses = async (page) => {
     throw error;
   }
 };
+// get course detail
 export const getCourseDetail = async (slug) => {
   try {
     const data = await get(`courses/${slug}`);
@@ -31,3 +32,16 @@ export const searchCourse = async (search) => {
     throw error;
   }
 };
+// register course
+// export const registerCourse = async (course) => {
+//   try {
+//     const data = await post(`register-Course`, true, course._id);
+//     return data;
+//   } catch (error) {
+//     console.error(
+//       "There was a problem with the register course operation:",
+//       error
+//     );
+//     throw error;
+//   }
+// };

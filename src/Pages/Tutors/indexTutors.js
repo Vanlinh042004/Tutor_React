@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "../../Style/course.scss";
-import images from "../../Component/imgPerson";
 import {
   getTutors,
   searchTutor,
   filterTutor,
 } from "../../Services/tutorService";
 import swal from "sweetalert";
+import { getCookie } from "../../Helpers/cookie";
 
 function Tutors() {
   const [tutors, setTutors] = useState([]);
@@ -15,7 +15,7 @@ function Tutors() {
   const [totalPage, setTotalPage] = useState(0);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
-
+  const token = getCookie("token");
   useEffect(() => {
     const fetchTutors = async () => {
       try {
@@ -33,7 +33,7 @@ function Tutors() {
           setTotalPage(data.pagination.totalPages);
         } else {
           const data = await getTutors(pageActive);
-          console.log(data.data);
+          //console.log(data.data);
           setTutors(data.data);
           setTotalPage(data.pagination.totalPages);
         }
@@ -180,7 +180,7 @@ function Tutors() {
                     <div className="info ml-4">
                       <h3>
                         <Link
-                          to={`/tutor/${tutor.slug}`}
+                          to={token ? `/tutors/${tutor.slug}` : "#"}
                           className="text-decoration-none text-black"
                         >
                           {tutor.name}
