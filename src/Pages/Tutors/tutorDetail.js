@@ -1,29 +1,91 @@
-import { parse } from "postcss";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import images from "../../Component/imgPerson";
 import "../../Style/tutor_detail.scss";
 import swal from "@sweetalert/with-react";
 
 import { getDetailTutor } from "../../Services/tutorService";
+import { get, post } from "../../Utils/request";
+
 function TutorDetail() {
-  const rating = 3.5;
-  const [selectedRating, setSelectedRating] = useState(0);
   const { slug } = useParams();
-  const [tutor, setTutor] = useState([]);
+  const [tutor, setTutor] = useState({});
+  const [reviews, setReviews] = useState([]);
+  const [overallRating, setOverallRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [ratingBreakdown, setRatingBreakdown] = useState({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  });
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const handleClick = (rating) => {
-    // Nếu sao đã được chọn, khi nhấn vào lại sẽ hủy chọn
     setSelectedRating(selectedRating === rating ? 0 : rating);
   };
-  useEffect(() => {
-    const fetchTutor = async () => {
+
+  const fetchTutor = async () => {
+    try {
       const data = await getDetailTutor(slug);
       setTutor(data.tutor);
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const data = await get(`reviews/${slug}/list`, true);
+      setReviews(data.reviews);
+
+      const total = data.reviews.length;
+      setTotalReviews(total);
+
+      const average =
+        total > 0
+          ? data.reviews.reduce((sum, review) => sum + review.reviewValue, 0) / total
+          : 0;
+      setOverallRating(parseFloat(average.toFixed(1)));
+
+      const breakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      data.reviews.forEach((review) => {
+        if (breakdown[review.reviewValue] !== undefined) {
+          breakdown[review.reviewValue] += 1;
+        }
+      });
+      setRatingBreakdown(breakdown);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmitReview = async () => {
+    if (selectedRating === 0 || comment.trim() === "") {
+      swal("Error", "Please provide a rating and comment.", "error");
+      return;
+    }
+
+    try {
+      await post(`reviews/${slug}`, { rating: selectedRating, comment }, true);
+      setShowModal(false);
+      setSelectedRating(0);
+      setComment("");
+      fetchReviews();
+      swal("Success", "Review submitted successfully.", "success");
+    } catch (error) {
+      console.error(error);
+      swal("Error", "Failed to submit review.", "error");
+    }
+  };
+
+  useEffect(() => {
     fetchTutor();
-  });
-  const [showModal, setShowModal] = useState(false);
-  const modalOverlayStyle = {};
+    fetchReviews();
+    // eslint-disable-next-line
+  }, [slug]);
 
   const modalContentStyle = {
     background: "#fff",
@@ -33,23 +95,6 @@ function TutorDetail() {
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
   };
 
-  const overallRating = 3.1;
-  const totalReviews = 10;
-  const reviews = [
-    { name: "Minhhhh", rating: 3, comment: "Minh ket noi di nhe" },
-    { name: "Linhhhhh", rating: 4, comment: "Minh làm lẹ đi nhe" },
-    { name: "Manhhhhh", rating: 3, comment: "Minh hãy cố gắng làm đi nhé" },
-  ];
-
-  const ratingBreakdown = {
-    1: 2,
-    2: 1,
-    3: 3,
-    4: 2,
-    5: 2,
-  };
-
-  // Function to render stars
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
       <i
@@ -60,6 +105,7 @@ function TutorDetail() {
       ></i>
     ));
   };
+
   return (
     <>
       <section className="ftco-section">
@@ -102,19 +148,19 @@ function TutorDetail() {
                         <h4>Social Link</h4>
                         <p className="ftco-social d-flex">
                           <a
-                            href="#"
+                            href={tutor.twitter || "#"}
                             className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-twitter" />
                           </a>
                           <a
-                            href="#"
+                            href={tutor.facebook || "#"}
                             className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-facebook" />
                           </a>
                           <a
-                            href="#"
+                            href={tutor.instagram || "#"}
                             className="d-flex justify-content-center align-items-center text-decoration-none"
                           >
                             <span className="fab fa-instagram" />
@@ -123,69 +169,8 @@ function TutorDetail() {
                       </div>
                     </div>
                   </div>
-
-                  {/* <div className="col-md-12 bg-light mt-3 p-5">
-                    <h2 className="mb-4">Viết đánh giá</h2>
-                    <div className="rating mb-5">
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        {[1, 2, 3, 4, 5].map((rating) => {
-                          const fullStar = rating <= selectedRating; // Sao đầy
-                          const halfStar =
-                            rating === Math.ceil(selectedRating) && !fullStar; // Sao nửa
-                          const emptyStar = rating > selectedRating; // Sao trống
-
-                          return (
-                            <button
-                              key={rating}
-                              style={{
-                                fontSize: "30px",
-                                border: "none",
-                                background: "none",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => handleClick(rating)}
-                            >
-                              {fullStar ? (
-                                <i className="fas fa-star"></i> // Sao đầy
-                              ) : halfStar ? (
-                                <i className="fas fa-star-half-alt"></i> // Sao nửa
-                              ) : (
-                                <i className="far fa-star"></i> // Sao trống
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <form>
-                      <div className="form-group">
-                        <textarea
-                          name=""
-                          id=""
-                          cols={30}
-                          rows={7}
-                          className="form-control"
-                          placeholder="Mô tả cụ thể đánh giá của bạn"
-                          defaultValue={""}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="submit"
-                          defaultValue="Gửi đánh giá"
-                          className="btn btn-primary py-3 px-5"
-                          value="Gửi đánh giá"
-                        />
-                      </div>
-                    </form>
-                  </div> */}
                 </div>
+                {/* Additional content can be added here */}
               </div>
             </div>
           </div>
@@ -210,10 +195,9 @@ function TutorDetail() {
               </ul>
             </div>
           </div>
-          <div className="">
-            {" "}
+          <div>
             <button
-              className="btn btn-primary py-3 px-5 btn-review "
+              className="btn btn-primary py-3 px-5 btn-review"
               onClick={() => setShowModal(true)}
             >
               Viết đánh giá
@@ -223,58 +207,54 @@ function TutorDetail() {
           <div className="review-list">
             {reviews.map((review, index) => (
               <div className="review-item" key={index}>
-                <h5>{review.name}</h5>
-                <p className="stars">{renderStars(review.rating)}</p>
+                <h5>{review.parentName}</h5>
+                <p className="stars">{renderStars(review.reviewValue)}</p>
                 <p>{review.comment}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div>
-          {/* Modal */}
-          {showModal && (
-            <div className="modal-overlay">
-              <div className="modal-content">
-                {/* Chọn số sao */}
-                <div className="rating-container">
-                  {[1, 2, 3, 4, 5].map((rating) => (
-                    <button
-                      key={rating}
-                      className="star-btn"
-                      onClick={() => handleClick(rating)}
-                    >
-                      {rating <= selectedRating ? "★" : "☆"}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Nội dung đánh giá */}
-                <textarea
-                  className="modal-textarea"
-                  placeholder="Nhập nội dung đánh giá"
-                  rows={4}
-                />
-
-                {/* Nút hành động */}
-                <div className="modal-actions">
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content" style={modalContentStyle}>
+              <div className="rating-container">
+                {[1, 2, 3, 4, 5].map((rating) => (
                   <button
-                    className="btn cancel"
-                    onClick={() => setShowModal(false)}
+                    key={rating}
+                    className="star-btn"
+                    onClick={() => handleClick(rating)}
                   >
-                    HỦY
+                    {rating <= selectedRating ? "★" : "☆"}
                   </button>
-                  <button
-                    className="btn save"
-                    onClick={() => setShowModal(false)}
-                  >
-                    ĐÁNH GIÁ
-                  </button>
-                </div>
+                ))}
+              </div>
+
+              <textarea
+                className="modal-textarea"
+                placeholder="Nhập nội dung đánh giá"
+                rows={4}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+
+              <div className="modal-actions">
+                <button
+                  className="btn cancel"
+                  onClick={() => setShowModal(false)}
+                >
+                  HỦY
+                </button>
+                <button
+                  className="btn save"
+                  onClick={handleSubmitReview}
+                >
+                  ĐÁNH GIÁ
+                </button>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </section>
     </>
   );
