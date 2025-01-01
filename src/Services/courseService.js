@@ -33,15 +33,19 @@ export const searchCourse = async (search) => {
   }
 };
 // register course
-// export const registerCourse = async (course) => {
-//   try {
-//     const data = await post(`register-Course`, true, course._id);
-//     return data;
-//   } catch (error) {
-//     console.error(
-//       "There was a problem with the register course operation:",
-//       error
-//     );
-//     throw error;
-//   }
-// };
+export const registerCourse = async (course) => {
+  try {
+    const data = await post(
+      "courses/register-Course",
+      { courseId: course._id },
+      true
+    );
+    return data;
+  } catch (error) {
+    console.error(
+      "There was a problem with the register course operation:",
+      error
+    );
+    throw error;
+  }
+};

@@ -10,7 +10,7 @@ const buildHeaders = (includeAuth) => {
 
   if (includeAuth) {
     const token = getCookie("token");
-    console.log("Retrieved token:", token); // Debug log
+    //console.log("Retrieved token:", token); // Debug log
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }

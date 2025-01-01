@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../Style/tutor_detail.scss";
+import { getReview } from "../../Services/tutorService";
+import { getCookie } from "../../Helpers/cookie";
+import { parseJwt } from "../../Helpers/JWT";
 import swal from "@sweetalert/with-react";
 
-import { getDetailTutor } from "../../Services/tutorService";
-import { get, post } from "../../Utils/request";
+import { getDetailTutor, postReview } from "../../Services/tutorService";
 
 function TutorDetail() {
   const { slug } = useParams();
+  const token = getCookie("token");
+  const role = parseJwt(token).role;
   const [tutor, setTutor] = useState({});
   const [reviews, setReviews] = useState([]);
   const [overallRating, setOverallRating] = useState(0);
@@ -38,7 +42,7 @@ function TutorDetail() {
 
   const fetchReviews = async () => {
     try {
-      const data = await get(`reviews/${slug}/list`, true);
+      const data = await getReview(slug);
       setReviews(data.reviews);
 
       const total = data.reviews.length;
@@ -46,7 +50,8 @@ function TutorDetail() {
 
       const average =
         total > 0
-          ? data.reviews.reduce((sum, review) => sum + review.reviewValue, 0) / total
+          ? data.reviews.reduce((sum, review) => sum + review.reviewValue, 0) /
+            total
           : 0;
       setOverallRating(parseFloat(average.toFixed(1)));
 
@@ -69,7 +74,7 @@ function TutorDetail() {
     }
 
     try {
-      await post(`reviews/${slug}`, { rating: selectedRating, comment }, true);
+      await postReview(slug, selectedRating, comment);
       setShowModal(false);
       setSelectedRating(0);
       setComment("");
@@ -86,14 +91,6 @@ function TutorDetail() {
     fetchReviews();
     // eslint-disable-next-line
   }, [slug]);
-
-  const modalContentStyle = {
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    width: "300px",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-  };
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -198,7 +195,17 @@ function TutorDetail() {
           <div>
             <button
               className="btn btn-primary py-3 px-5 btn-review"
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                if (role === "parent") {
+                  setShowModal(true);
+                } else {
+                  swal(
+                    "Error",
+                    "Chỉ phụ huynh mới được đánh giá gia sư.",
+                    "error"
+                  );
+                }
+              }}
             >
               Viết đánh giá
             </button>
@@ -217,7 +224,7 @@ function TutorDetail() {
 
         {showModal && (
           <div className="modal-overlay">
-            <div className="modal-content" style={modalContentStyle}>
+            <div className="modal-content">
               <div className="rating-container">
                 {[1, 2, 3, 4, 5].map((rating) => (
                   <button
@@ -245,10 +252,7 @@ function TutorDetail() {
                 >
                   HỦY
                 </button>
-                <button
-                  className="btn save"
-                  onClick={handleSubmitReview}
-                >
+                <button className="btn save" onClick={handleSubmitReview}>
                   ĐÁNH GIÁ
                 </button>
               </div>
