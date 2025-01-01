@@ -22,3 +22,5 @@
   + BE
     + Chỉnh sửa thông tin mới nhé (Minh)
     + Cập nhật pass mới (Mạnh, do Mạnh đã làm cái liên quan tới pass nên có kinh nghiệm)
+   
+## MERGE MÀ CONFLICT THÌ HỎI NGƯỜI KHÁC NHEN
