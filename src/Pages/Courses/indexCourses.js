@@ -13,7 +13,6 @@ function Courses() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState("");
   const [filter, setFilter] = useState("");
-  const [filterResult, setFilterResult] = useState("");
   const assignRandomImages = (courses) => {
     return courses.map((course) => {
       const randomImage = images[Math.floor(Math.random() * images.length)];

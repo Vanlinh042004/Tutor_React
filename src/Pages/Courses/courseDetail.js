@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgCourse";
 import { getCourseDetail } from "../../Services/courseService";
-import { post } from "../../Utils/request";
+import { registerCourse } from "../../Services/courseService";
+import { getCookie } from "../../Helpers/cookie";
+import { parseJwt } from "../../Helpers/JWT";
+import swal from "sweetalert";
 const randomImage = images[Math.floor(Math.random() * images.length)];
 function CourseDetail() {
+  const token = getCookie("token");
+  const role = parseJwt(token).role;
+  //console.log(role);
   const { slug } = useParams();
   const [course, setCourse] = useState([]);
   useEffect(() => {
@@ -24,12 +30,21 @@ function CourseDetail() {
   }, [slug]);
   const handleClick = async () => {
     try {
-        const courseData = await post("courses/register-Course", { courseId: course._id }, true);
-        console.log(courseData);
+      const courseData = await registerCourse(course);
+      //console.log(courseData);
+      if (courseData) {
+        swal("Đăng ký nhận lớp thành công", {
+          icon: "success",
+        });
+      } else {
+        swal("Đăng ký nhận lớp thất bại", {
+          icon: "error",
+        });
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-};
+  };
   return (
     <>
       <section className="ftco-section">
@@ -78,7 +93,18 @@ function CourseDetail() {
                         <b>Liên hệ: </b>
                         {course.contact}
                       </p>
-                      <button className="btn btn-danger" onClick={handleClick}>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          if (role === "tutor") {
+                            handleClick();
+                          } else {
+                            swal("Bạn không thể đăng ký nhận lớp", {
+                              icon: "error",
+                            });
+                          }
+                        }}
+                      >
                         Đăng ký nhận lớp
                       </button>
                       <div className="mt-4"></div>

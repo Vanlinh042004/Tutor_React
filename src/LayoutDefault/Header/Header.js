@@ -18,7 +18,7 @@ function Header() {
     fullName.split(" ")[fullName.split(" ").length - 1] +
     " " +
     fullName.split(" ")[0];
-  console.log(nameUser);
+  // console.log(nameUser);
 
   const isLogin = useSelector((state) => state.loginReducer);
   const toggleLinks = () => {
