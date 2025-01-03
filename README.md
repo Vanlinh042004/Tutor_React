@@ -20,7 +20,7 @@
 - Đăng ký lớp học (FE rồi còn BE để Lĩnh choa)
 - Xem thông tin user, chỉnh sửa, Đổi mật khẩu
   + BE
-    + Chỉnh sửa thông tin mới nhé (Minh)
+    + Chỉnh sửa thông tin mới nhé (Minh) (RỒI)
     + Cập nhật pass mới (Mạnh, do Mạnh đã làm cái liên quan tới pass nên có kinh nghiệm)
    
 ## MERGE MÀ CONFLICT THÌ HỎI NGƯỜI KHÁC NHEN
