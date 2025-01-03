@@ -24,5 +24,5 @@
     + Cập nhật pass mới (Mạnh, do Mạnh đã làm cái liên quan tới pass nên có kinh nghiệm) (Lĩnh làm rồi nhé)
 #### CHỨC NĂNG CUỐI
 - Nhận lớp (BE rồi) => vào user xem => check trạng thái => Thanh toán () (Mạnh FE + Minh BE)
-- Valid email/pass (Lĩnh)
+- Verify email(Đky+Forget)/pass(Đky) (Lĩnh)
 ## MERGE MÀ CONFLICT THÌ HỎI NGƯỜI KHÁC NHEN
