@@ -16,11 +16,12 @@
 - Sửa lại Register (Minh) >>> Dễ (RỒI)
 - Nhận lớp => vào user xem => check trạng thái => Thanh toán (Lĩnh)
 - Chat với admin (Lĩnh FE) (hên xui)
-#### CHỨC NĂNG CẦN HOÀN THÀNH
-- Đăng ký lớp học (FE rồi còn BE để Lĩnh choa)
+#### CHỨC NĂNG CẦN HOÀN THÀNH (ĐÃ XONG)
+- Đăng ký lớp học (FE rồi còn BE để Lĩnh choa) (rồi)
 - Xem thông tin user, chỉnh sửa, Đổi mật khẩu
   + BE
     + Chỉnh sửa thông tin mới nhé (Minh) (RỒI)
-    + Cập nhật pass mới (Mạnh, do Mạnh đã làm cái liên quan tới pass nên có kinh nghiệm)
-   
+    + Cập nhật pass mới (Mạnh, do Mạnh đã làm cái liên quan tới pass nên có kinh nghiệm) (Lĩnh làm rồi nhé)
+#### CHỨC NĂNG CUỐI
+- Nhận lớp (BE rồi) => vào user xem => check trạng thái => Thanh toán ()
 ## MERGE MÀ CONFLICT THÌ HỎI NGƯỜI KHÁC NHEN
