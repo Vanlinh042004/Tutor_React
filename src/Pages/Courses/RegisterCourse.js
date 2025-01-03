@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { createCourse } from "../../Services/courseService";
+import swal from "sweetalert";
+import { getCookie } from "../../Helpers/cookie";
+import { parseJwt } from "../../Helpers/JWT";
 const RegisterCourse = () => {
   const [formData, setFormData] = useState({
     subject: "",
-    className: "",
+    grade: "",
     address: "",
-    requirements: "",
     salary: "",
     sessions: "",
-    description: "",
+    schedule: "",
+    studentInfo: "",
+    requirements: "",
+    teachingMode: "",
+    contact: "",
+    sexTutor: "",
   });
-
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const token = getCookie("token");
+  const role = parseJwt(token).role;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,23 +30,57 @@ const RegisterCourse = () => {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.subject) newErrors.subject = "Vui lòng nhập môn học.";
-    if (!formData.className) newErrors.className = "Vui lòng nhập tên lớp.";
+    if (!formData.grade) newErrors.grade = "Vui lòng nhập lớp.";
     if (!formData.address) newErrors.address = "Vui lòng nhập địa chỉ.";
     if (!formData.salary || formData.salary <= 0)
       newErrors.salary = "Lương phải lớn hơn 0.";
     if (!formData.sessions || formData.sessions <= 0)
       newErrors.sessions = "Số buổi phải lớn hơn 0.";
-    if (!formData.description) newErrors.description = "Vui lòng nhập mô tả.";
+    if (!formData.schedule) newErrors.schedule = "Vui lòng nhập lịch học.";
+    if (!formData.studentInfo)
+      newErrors.studentInfo = "Vui lòng nhập thông tin học sinh.";
+    if (!formData.requirements)
+      newErrors.requirements = "Vui lòng nhập yêu cầu gia sư.";
+    if (!formData.teachingMode)
+      newErrors.teachingMode = "Vui lòng chọn hình thức dạy.";
+    if (!formData.contact)
+      newErrors.contact = "Vui lòng nhập thông tin liên hệ.";
+    if (!formData.sexTutor) newErrors.sexTutor = "Vui lòng chọn giới tính.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      setIsSubmitted(true);
-      console.log("Form Data Submitted:", formData);
+      // setIsSubmitted(true);
+      // console.log("Form Data Submitted:", formData);
+      if (role !== "Tutor") {
+        swal(
+          "Đăng ký thất bại!",
+          "Chỉ phụ huynh mới có thể đăng ký lớp học!",
+          "error"
+        );
+        return;
+      } else {
+        try {
+          const response = await createCourse(formData); // Giả sử createCourse là hàm gửi yêu cầu POST đến backend
+          console.log(response);
+          if (response) {
+            swal(
+              "Đăng ký thành công!",
+              "Chúng tôi sẽ liên hệ sớm nhất có thể!",
+              "success"
+            );
+          } else {
+            swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
+          }
+        } catch (error) {
+          //console.error("Error:", error);
+          swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
+        }
+      }
     } else {
       setIsSubmitted(false);
     }
@@ -68,19 +109,19 @@ const RegisterCourse = () => {
               )}
             </div>
 
-            {/* Tên lớp */}
+            {/* Lớp */}
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">Lớp</label>
               <input
-                type="text"
-                name="className"
-                value={formData.className}
+                type="number"
+                name="grade"
+                value={formData.grade}
                 onChange={handleChange}
                 className="w-full border rounded-lg p-2"
-                placeholder="Nhập tên lớp"
+                placeholder="Nhập lớp"
               />
-              {errors.className && (
-                <p className="text-red-500 text-sm mt-1">{errors.className}</p>
+              {errors.grade && (
+                <p className="text-red-500 text-sm mt-1">{errors.grade}</p>
               )}
             </div>
 
@@ -134,23 +175,118 @@ const RegisterCourse = () => {
               )}
             </div>
 
-            {/* Mô tả */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
-                Mô tả về học sinh (VD: học lực học sinh, yêu cầu học sinh, ...)
-              </label>
-              <textarea
-                name="description"
-                value={formData.description}
+            {/* Lịch học */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Lịch học</label>
+              <input
+                type="text"
+                name="schedule"
+                value={formData.schedule}
                 onChange={handleChange}
                 className="w-full border rounded-lg p-2"
-                placeholder="Mô tả học lực học sinh"
+                placeholder="Nhập lịch học"
+              />
+              {errors.schedule && (
+                <p className="text-red-500 text-sm mt-1">{errors.schedule}</p>
+              )}
+            </div>
+
+            {/* Mô tả thông tin */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">
+                Thông tin học sinh (VD: học lực học sinh, yêu cầu học sinh, ...)
+              </label>
+              <textarea
+                name="studentInfo"
+                value={formData.studentInfo}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+                placeholder="Thông tin về học sinh"
                 rows="3"
               />
-              {errors.description && (
+              {errors.studentInfo && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.description}
+                  {errors.studentInfo}
                 </p>
+              )}
+            </div>
+
+            {/* Yêu cầu gia sư */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">
+                Yêu cầu gia sư
+              </label>
+              <textarea
+                name="requirements"
+                value={formData.requirements}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+                placeholder="Yêu cầu về gia sư"
+                rows="3"
+              />
+              {errors.requirements && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.requirements}
+                </p>
+              )}
+            </div>
+
+            {/* Hình thức dạy */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">
+                Hình thức
+              </label>
+              <select
+                name="teachingMode"
+                value={formData.teachingMode}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+              >
+                <option value="">Chọn hình thức</option>
+                <option value="Offline">Trực tiếp</option>
+                <option value="Online">Online</option>
+              </select>
+              {errors.teachingMode && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.teachingMode}
+                </p>
+              )}
+            </div>
+
+            {/* Liên hệ */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Liên hệ</label>
+              <input
+                type="tel"
+                name="contact"
+                value={formData.contact}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+                placeholder="Nhập số điện thoại"
+                pattern="[0-9]{10}" // Đảm bảo rằng số điện thoại có 10 chữ số
+              />
+              {errors.contact && (
+                <p className="text-red-500 text-sm mt-1">{errors.contact}</p>
+              )}
+            </div>
+
+            {/* Giới tính gia sư */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">
+                Giới tính gia sư
+              </label>
+              <select
+                name="sexTutor"
+                value={formData.sexTutor}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+              >
+                <option value="">Chọn giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
+              {errors.sexTutor && (
+                <p className="text-red-500 text-sm mt-1">{errors.sexTutor}</p>
               )}
             </div>
 

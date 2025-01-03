@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../Helpers/cookie";
 import { get } from "../../Utils/request";
-
+import swal from "sweetalert";
+import { UpdatePassword } from "../../Services/userService";
 function Profile() {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -17,7 +18,10 @@ function Profile() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -51,7 +55,24 @@ function Profile() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-
+  const handleUpdatePassword = (e) => {
+    e.preventDefault();
+    // console.log(oldPassword);
+    // console.log(newPassword);
+    // console.log(confirmPassword);
+    if (newPassword !== confirmPassword) {
+      swal("Lỗi", "Mật khẩu không khớp", "error");
+    } else {
+      const response = UpdatePassword(oldPassword, newPassword);
+      //console.log(response);
+      if (response) {
+        swal("Thành công", "Mật khẩu đã được thay đổi", "success");
+        navigate("/logout");
+      } else {
+        swal("Lỗi", "Bạn không thể thay đổi mật khẩu", "error");
+      }
+    }
+  };
   return (
     <>
       <div className="profile__container">
@@ -163,17 +184,29 @@ function Profile() {
           <div className="profile__modal">
             <div className="profile__modal-content">
               <h4 className="profile__modal-title">Change Password</h4>
-              <form>
+              <form onSubmit={handleUpdatePassword}>
                 <label className="profile__modal-label">
-                  Current Password:
+                  Mật khẩu hiện tại:
                 </label>
-                <input type="password" className="profile__modal-input" />
-                <label className="profile__modal-label">Password:</label>
-                <input type="password" className="profile__modal-input" />
+                <input
+                  type="password"
+                  className="profile__modal-input"
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+                <label className="profile__modal-label">Mật khẩu mới:</label>
+                <input
+                  type="password"
+                  className="profile__modal-input"
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
                 <label className="profile__modal-label">
-                  Confirm Password:
+                  Xác nhận mật khẩu mới:
                 </label>
-                <input type="password" className="profile__modal-input" />
+                <input
+                  type="password"
+                  className="profile__modal-input"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
                 <div className="profile__modal-actions">
                   <button
                     type="button"
