@@ -66,6 +66,9 @@ function Header() {
                         <NavLink to="/profile" className="user__link">
                           Hồ sơ
                         </NavLink>
+                        <NavLink to="/request-class" className="user__link">
+                          Danh sách đã nhận
+                        </NavLink>
                         <NavLink to="/logout" className="user__link">
                           Đăng xuất
                         </NavLink>

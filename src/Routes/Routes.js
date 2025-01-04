@@ -13,6 +13,7 @@ import CourseDetail from "../Pages/Courses/courseDetail";
 import TutorDetail from "../Pages/Tutors/tutorDetail";
 import RegisterCourse from "../Pages/Courses/RegisterCourse";
 import Profile from "../Pages/Profile/indexProfile";
+import RequestClass from "../Pages/RequestClass/indexRequestClass";
 export const routes = [
   {
     path: "/",
@@ -73,6 +74,10 @@ export const routes = [
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "request-class",
+        element: <RequestClass />,
       },
     ],
   },
