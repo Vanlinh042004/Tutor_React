@@ -7,7 +7,6 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { getCookie } from "../../Helpers/cookie";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { parseJwt } from "../../Helpers/JWT";
 
 function Header() {
   const [showLinks, setShowLinks] = useState(false);
@@ -25,7 +24,11 @@ function Header() {
     setShowLinks(!showLinks); // Chuyển trạng thái ẩn/hiện
   };
   useEffect(() => {
-    if (location.pathname === "/profile" || location.pathname === "/logout") {
+    if (
+      location.pathname === "/profile" ||
+      location.pathname === "/logout" ||
+      location.pathname === "/request-class"
+    ) {
       setShowLinks(false);
     }
   }, [location.pathname]);
@@ -67,7 +70,7 @@ function Header() {
                           Hồ sơ
                         </NavLink>
                         <NavLink to="/request-class" className="user__link">
-                          Danh sách đã nhận
+                          Lớp học đã nhận
                         </NavLink>
                         <NavLink to="/logout" className="user__link">
                           Đăng xuất

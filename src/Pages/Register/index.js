@@ -4,20 +4,62 @@ import "../../Style/signup.css";
 import { Register } from "../../Services/userService";
 import swal from "sweetalert";
 function Signup() {
+  const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [introduction, setIntroduction] = useState("");
-
-  const navigate = useNavigate();
+  // Validation for password
+  const [password, setPassword] = useState("");
+  const [errorPassMessage, setErrorPassMessage] = useState("");
+  const [isValid, setIsValid] = useState(true);
+  const validatePassword = (password) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    // console.log(newPassword);
+    // console.log(isValid);
+    if (newPassword.length === 0) setIsValid(true);
+    else if (validatePassword(newPassword)) {
+      setIsValid(true);
+    } else {
+      setErrorPassMessage(
+        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt."
+      );
+      setIsValid(false);
+    }
+  };
+  // Validation for email
+  const [email, setEmail] = useState("");
+  const [errorEmailMessage, setErrorEmailMessage] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+  const handleChangeEmail = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (newEmail.length === 0) setIsValidEmail(true);
+    else if (validateEmail(newEmail)) {
+      setIsValidEmail(true);
+    } else {
+      setErrorEmailMessage("Email phải có dạng @gmail.com");
+      setIsValidEmail(false);
+    }
+  };
+  // Role change handler
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const options = {
@@ -86,9 +128,14 @@ function Signup() {
                 type="email"
                 className="input"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChangeEmail}
               />
               <span>Email</span>
+              {!isValidEmail && (
+                <span id="email-error" className="text-danger">
+                  {errorEmailMessage}
+                </span>
+              )}
             </label>
             <label>
               <input
@@ -119,9 +166,14 @@ function Signup() {
                 type="password"
                 className="input"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
               />
               <span>Mật khẩu</span>
+              {!isValid && (
+                <span id="password-error" className="text-danger">
+                  {errorPassMessage}
+                </span>
+              )}
             </label>
             <label>
               <input
