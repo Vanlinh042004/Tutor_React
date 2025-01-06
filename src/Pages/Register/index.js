@@ -34,8 +34,9 @@ function Signup() {
 
     try {
       const response = await Register(options);
-      console.log(response);
+      //console.log(response);
       if (response.message === "Đăng ký thành công.") {
+        swal("Thành công", response.message, "success");
         navigate("/login"); // Navigate to the login page after successful registration
       } else {
         swal(
