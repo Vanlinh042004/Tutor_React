@@ -24,4 +24,8 @@ const ForgotPassword = async (email) => {
 const VerifyReset = async (email, resetToken) => {
   return await post("verify-Reset", { email, resetToken });
 };
-export { Login, Register, ForgotPassword, VerifyReset };
+// update password
+const UpdatePassword = async (oldPassword, newPassword) => {
+  return await post("updatepassword", { oldPassword, newPassword }, true);
+};
+export { Login, Register, ForgotPassword, VerifyReset, UpdatePassword };

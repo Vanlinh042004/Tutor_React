@@ -68,6 +68,9 @@ function Signin() {
             <p className="signin">
               <Link to="/forget">Quên mật khẩu</Link>
             </p>
+            <p className="signin">
+              Bạn chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+            </p>
             <div className="socialSign">
               <p className="message">---------- Hoặc ----------</p>
               <div className="social">

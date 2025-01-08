@@ -141,7 +141,7 @@ function Tutors() {
                       </select>
                       <input
                         type="submit"
-                        value="Tìm kiếm"
+                        value="Lọc"
                         className="submit ml-2"
                       />
                     </div>

@@ -49,3 +49,16 @@ export const registerCourse = async (course) => {
     throw error;
   }
 };
+// create course
+export const createCourse = async (course) => {
+  try {
+    const data = await post("courses/create", course, true);
+    return data;
+  } catch (error) {
+    console.error(
+      "There was a problem with the create course operation:",
+      error
+    );
+    throw error;
+  }
+};
