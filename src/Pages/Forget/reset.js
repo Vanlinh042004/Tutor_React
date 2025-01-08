@@ -21,7 +21,7 @@ const ResetPassword = () => {
     } else {
       try {
         // Gửi yêu cầu đến backend để đặt lại mật khẩu
-        const response = await fetch("http://localhost:3010/reset-password", {
+        const response = await fetch("http://localhost:5000/reset-password", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const ResetPassword = () => {
 
           // Chuyển hướng sau khi thành công
           setTimeout(() => {
-            navigate("/signin");
+            navigate("/login");
           }, 2000);
         } else {
           const errorData = await response.json();

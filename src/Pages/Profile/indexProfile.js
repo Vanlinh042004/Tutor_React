@@ -5,6 +5,7 @@ import { getCookie } from "../../Helpers/cookie";
 import { get } from "../../Utils/request";
 import swal from "sweetalert";
 import { UpdatePassword } from "../../Services/userService";
+
 function Profile() {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -51,6 +52,37 @@ function Profile() {
       ...prevProfile,
       [name]: value,
     }));
+  };
+
+  // Function to handle saving the edited profile
+  const handleSave = async () => {
+    try {
+      // Map front-end profile fields to backend fields
+      const updateData = {
+        name: profile.fullName,
+        phoneNumber: profile.phone,
+        address: profile.address,
+        dob: profile.birthDate,
+      };
+
+      const data = await post("profile/edit", updateData, true);
+
+      // Update profile state with response data
+      setProfile({
+        fullName: data["Họ và Tên"],
+        role: data["Vai trò"],
+        birthDate: data["Ngày sinh"],
+        phone: data["Số điện thoại"],
+        email: data["Email"],
+        address: data["Địa chỉ"],
+      });
+
+      setIsEditing(false);
+      setError(null);
+    } catch (err) {
+      console.error("Error saving profile:", err);
+      setError("Failed to save profile.");
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -120,6 +152,7 @@ function Profile() {
                   value={profile.role}
                   onChange={handleInputChange}
                   className="profile__details__input"
+                  disabled
                 />
               ) : (
                 <p className="profile__details__text">{profile.role}</p>
@@ -149,6 +182,7 @@ function Profile() {
                   value={profile.email}
                   onChange={handleInputChange}
                   className="profile__details__input"
+                  disabled
                 />
               ) : (
                 <p className="profile__details__text">{profile.email}</p>
@@ -172,7 +206,7 @@ function Profile() {
 
           <div className="profile__actions">
             <button
-              onClick={() => setIsEditing(!isEditing)}
+              onClick={isEditing ? handleSave : () => setIsEditing(true)}
               className={`profile__actions-btn ${isEditing ? "editing" : ""}`}
             >
               {isEditing ? "Lưu" : "Chỉnh sửa"}

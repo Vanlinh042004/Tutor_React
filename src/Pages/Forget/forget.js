@@ -11,24 +11,18 @@ const ForgetPassword = () => {
   const handleSendCode = async () => {
     if (email) {
       try {
-        // const response = await fetch("http://localhost:3010/forgot-password", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ email }),
-        // });
         const response = await ForgotPassword(email);
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Mã xác thực đã được gửi:", data.message);
+        console.log(response);
+
+        // Kiểm tra nếu phản hồi có chứa thông báo thành công
+        if (response && response.message) {
+          console.log("Mã xác thực đã được gửi:", response.message);
           setIsCodeSent(true);
           setErrorMessage("");
           // Lưu email vào localStorage
           localStorage.setItem("email", email);
         } else {
-          const errorData = await response.json();
-          setErrorMessage(errorData.message || "Gửi mã thất bại.");
+          setErrorMessage("Gửi mã thất bại. Vui lòng thử lại.");
         }
       } catch (error) {
         setErrorMessage("Đã xảy ra lỗi khi gửi mã. Vui lòng thử lại.");
@@ -42,19 +36,13 @@ const ForgetPassword = () => {
   const handleVerifyCode = async () => {
     if (code) {
       try {
-        // const response = await fetch("http://localhost:3010/verify-Reset", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ email, resetToken: code }), // Sử dụng email đã lưu
-        // });
         const response = await VerifyReset(email, code);
-        if (response.ok) {
+
+        // Kiểm tra nếu `message` chứa chuỗi "Mã xác thực hợp lệ"
+        if (response && response.message === "Mã xác thực hợp lệ.") {
           navigate("/reset-password"); // Chuyển đến trang đặt lại mật khẩu
         } else {
-          const errorData = await response.json();
-          setErrorMessage(errorData.message || "Mã xác nhận không chính xác.");
+          setErrorMessage(response.message || "Mã xác nhận không chính xác.");
         }
       } catch (error) {
         setErrorMessage("Đã xảy ra lỗi khi xác nhận mã. Vui lòng thử lại.");
