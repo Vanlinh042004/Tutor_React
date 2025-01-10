@@ -14,6 +14,7 @@ import TutorDetail from "../Pages/Tutors/tutorDetail";
 import RegisterCourse from "../Pages/Courses/RegisterCourse";
 import Profile from "../Pages/Profile/indexProfile";
 import RequestClass from "../Pages/RequestClass/indexRequestClass";
+import ParentClass from "../Pages/ParentClass/indexParentClass";
 export const routes = [
   {
     path: "/",
@@ -78,6 +79,10 @@ export const routes = [
       {
         path: "request-class",
         element: <RequestClass />,
+      },
+      {
+        path: "parent-class",
+        element: <ParentClass />,
       },
     ],
   },

@@ -7,11 +7,17 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { getCookie } from "../../Helpers/cookie";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { parseJwt } from "../../Helpers/JWT";
 
 function Header() {
   const [showLinks, setShowLinks] = useState(false);
   const location = useLocation();
   const token = getCookie("token");
+  let role = "";
+  if (token) {
+    role = parseJwt(token).role;
+  }
+  //console.log(role);
   const fullName = getCookie("name");
   const nameUser =
     fullName.split(" ")[fullName.split(" ").length - 1] +
@@ -27,7 +33,13 @@ function Header() {
     if (
       location.pathname === "/profile" ||
       location.pathname === "/logout" ||
-      location.pathname === "/request-class"
+      location.pathname === "/request-class" ||
+      location.pathname === "/parent-class" ||
+      location.pathname === "/home" ||
+      location.pathname === "/about" ||
+      location.pathname === "/courses" ||
+      location.pathname === "/tutors" ||
+      location.pathname === "/contact"
     ) {
       setShowLinks(false);
     }
@@ -69,9 +81,16 @@ function Header() {
                         <NavLink to="/profile" className="user__link">
                           Hồ sơ
                         </NavLink>
-                        <NavLink to="/request-class" className="user__link">
-                          Lớp học đã nhận
-                        </NavLink>
+                        {role === "tutor" ? (
+                          <NavLink to="/request-class" className="user__link">
+                            Lớp học đã nhận
+                          </NavLink>
+                        ) : (
+                          <NavLink to="/parent-class" className="user__link">
+                            Lớp học đã đăng ký
+                          </NavLink>
+                        )}
+
                         <NavLink to="/logout" className="user__link">
                           Đăng xuất
                         </NavLink>
