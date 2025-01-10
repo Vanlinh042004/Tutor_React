@@ -1,35 +1,35 @@
 import React from "react";
-
-const handlePayment = (courseId) => {};
+import { getMyCourse, deleteCourse } from "../../Services/parentService";
+import { useEffect, useState } from "react";
 const ParentClass = () => {
-  const courses = [
-    {
-      id: 1,
-      subject: "Toán",
-      grade: "Lớp 10",
-      salary: "500,000 VNĐ/buổi",
-      address: "123 Đường ABC, Quận 1, TP.HCM",
-      sexTutor: "Nam",
-      requirements: "Có kinh nghiệm giảng dạy ít nhất 1 năm.",
-    },
-    {
-      id: 2,
-      subject: "Tiếng Anh",
-      grade: "Lớp 8",
-      salary: "400,000 VNĐ/buổi",
-      address: "456 Đường XYZ, Quận 3, TP.HCM",
-      sexTutor: "Nữ",
-      requirements: "Phát âm chuẩn, giao tiếp lưu loát.",
-    },
-  ];
-
+  const [courses, setCourses] = useState([]);
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const data = await getMyCourse();
+        //console.log(data.courses);
+        setCourses(data.courses);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+    getCourse();
+  }, [courses]);
+  const handleDelete = async (slug) => {
+    try {
+      const data = await deleteCourse(slug);
+      console.log(data);
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
+  };
   return (
     <div className="container mx-auto p-4 mt-5">
       {courses && courses.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {courses.map((course) => (
             <div
-              key={course.id}
+              key={course._id}
               className="p-4 border rounded-lg shadow hover:shadow-lg transition"
             >
               <h3 className="text-lg font-semibold mb-2">
@@ -37,6 +37,14 @@ const ParentClass = () => {
               </h3>
               <p className="mb-1">
                 <b>Lương:</b> <span className="price">{course.salary}</span>
+              </p>
+              <p className="mb-1">
+                <b>Hình thức dạy:</b>{" "}
+                <span className="mode">{course.teachingMode}</span>
+              </p>
+              <p className="mb-1">
+                <b>Thời gian:</b>{" "}
+                <span className="schedule">{course.schedule}</span>
               </p>
               <p className="mb-1">
                 <b>Địa chỉ:</b> {course.address}
@@ -49,7 +57,7 @@ const ParentClass = () => {
               </p>
               <button
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                onClick={() => handlePayment(course.id)}
+                onClick={() => handleDelete(course.slug)}
               >
                 Hủy đăng ký
               </button>
@@ -57,7 +65,7 @@ const ParentClass = () => {
           ))}
         </div>
       ) : (
-        <p>Không có lớp học nào được nhận.</p>
+        <h1>Bạn chưa đăng ký lớp học nào cả </h1>
       )}
     </div>
   );

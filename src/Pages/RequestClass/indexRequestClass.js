@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { get } from "../../Utils/request";
 
 const IndexRequestClass = () => {
-  const courses = [
-    {
-      id: 1,
-      subject: "Toán",
-      grade: "Lớp 10",
-      salary: "500,000 VNĐ/buổi",
-      address: "123 Đường ABC, Quận 1, TP.HCM",
-      sexTutor: "Nam",
-      requirements: "Có kinh nghiệm giảng dạy ít nhất 1 năm.",
-    },
-    {
-      id: 2,
-      subject: "Tiếng Anh",
-      grade: "Lớp 8",
-      salary: "400,000 VNĐ/buổi",
-      address: "456 Đường XYZ, Quận 3, TP.HCM",
-      sexTutor: "Nữ",
-      requirements: "Phát âm chuẩn, giao tiếp lưu loát.",
-    },
-  ];
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await get("courses/registrations", true);
+        console.log("Pending registrations:", response.pendingRegistrations);
+        setCourses(
+          response.pendingRegistrations.map((reg) => ({
+            id: reg.registrationId,
+            subject: reg.course.subject,
+            grade: reg.course.grade,
+            salary: reg.course.salary,
+            address: reg.course.address,
+            sexTutor: reg.course.sexTutor,
+            requirements: reg.course.requirements,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   return (
     <div className="container mx-auto p-4 mt-5">

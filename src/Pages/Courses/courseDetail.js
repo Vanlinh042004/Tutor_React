@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../../Component/imgCourse";
 import { getCourseDetail } from "../../Services/courseService";
-import { registerCourse } from "../../Services/courseService";
+import { registerCourse } from "../../Services/tutorService";
 import { getCookie } from "../../Helpers/cookie";
 import { parseJwt } from "../../Helpers/JWT";
 import swal from "sweetalert";
