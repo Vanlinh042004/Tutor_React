@@ -1,16 +1,10 @@
-import { post } from "../Utils/request";
+import { post, get } from "../Utils/request";
 
 const Login = async (email, password) => {
-  try {
-    const data = await post("login", {
-      email: email,
-      password: password,
-    });
-    return data;
-  } catch (error) {
-    console.error("There was a problem with the login operation:", error);
-    throw error;
-  }
+  return await post("login", {
+    email: email,
+    password: password,
+  });
 };
 // Register
 const Register = async (options) => {
@@ -25,7 +19,23 @@ const VerifyReset = async (email, resetToken) => {
   return await post("verify-Reset", { email, resetToken });
 };
 // update password
-const UpdatePassword = async (oldPassword, newPassword) => {
+const updatePassword = async (oldPassword, newPassword) => {
   return await post("updatepassword", { oldPassword, newPassword }, true);
 };
-export { Login, Register, ForgotPassword, VerifyReset, UpdatePassword };
+// get profile
+const getProfile = async () => {
+  return await get("profile", true);
+};
+// update profile
+const updateProfile = async (options) => {
+  return await post("profile/edit", options, true);
+};
+export {
+  Login,
+  Register,
+  ForgotPassword,
+  VerifyReset,
+  updatePassword,
+  getProfile,
+  updateProfile,
+};

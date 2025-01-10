@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { createCourse } from "../../Services/courseService";
+import { createCourse } from "../../Services/parentService";
 import swal from "sweetalert";
 import { getCookie } from "../../Helpers/cookie";
 import { parseJwt } from "../../Helpers/JWT";
@@ -56,7 +56,7 @@ const RegisterCourse = () => {
     if (validateForm()) {
       // setIsSubmitted(true);
       // console.log("Form Data Submitted:", formData);
-      if (role !== "Tutor") {
+      if (role === "Tutor") {
         swal(
           "Đăng ký thất bại!",
           "Chỉ phụ huynh mới có thể đăng ký lớp học!",
@@ -65,7 +65,7 @@ const RegisterCourse = () => {
         return;
       } else {
         try {
-          const response = await createCourse(formData); // Giả sử createCourse là hàm gửi yêu cầu POST đến backend
+          const response = await createCourse(formData);
           console.log(response);
           if (response) {
             swal(
@@ -77,7 +77,7 @@ const RegisterCourse = () => {
             swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
           }
         } catch (error) {
-          //console.error("Error:", error);
+          console.error("Error:", error);
           swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
         }
       }
