@@ -7,10 +7,10 @@ import useCounters from "../../Hooks/useCounter";
 import Slider from "react-slick";
 function Home() {
   const counters = [
-    { id: 1, value: 10300, label: "Satisfied Students" },
-    { id: 2, value: 7896, label: "Courses Completed" },
-    { id: 3, value: 400, label: "Experts Advisors" },
-    { id: 4, value: 200, label: "Customers" },
+    { id: 1, value: 10300, label: "Đánh giá tích cực" },
+    { id: 2, value: 7896, label: "Lớp học hoàn thành" },
+    { id: 3, value: 400, label: "Gia sư uy tín" },
+    { id: 4, value: 200, label: "Phụ huynh hài lòng" },
   ];
   const counts = useCounters(counters);
 

@@ -25,7 +25,7 @@ function Tutors() {
           if (data.tutors.length === 0) {
             swal("Không tìm thấy kết quả nào", "Vui lòng thử lại", "error");
           }
-          setTutors(data.data);
+          setTutors(data.tutors);
           setTotalPage(data.pagination.totalPages);
         } else if (filter.trim()) {
           const data = await filterTutor(filter);

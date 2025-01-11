@@ -1,10 +1,14 @@
 import "../../Style/user-profile.scss";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../Helpers/cookie";
-import { get } from "../../Utils/request";
 import swal from "sweetalert";
-import { UpdatePassword } from "../../Services/userService";
+
+import {
+  updatePassword,
+  getProfile,
+  updateProfile,
+} from "../../Services/userService";
+
 
 function Profile() {
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -26,7 +30,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await get("profile", true);
+        const data = await getProfile();
         setProfile({
           fullName: data["Họ và Tên"],
           role: data["Vai trò"],
@@ -65,7 +69,8 @@ function Profile() {
         dob: profile.birthDate,
       };
 
-      const data = await post("profile/edit", updateData, true);
+      const data = await updateProfile(updateData);
+
 
       // Update profile state with response data
       setProfile({
@@ -95,7 +100,7 @@ function Profile() {
     if (newPassword !== confirmPassword) {
       swal("Lỗi", "Mật khẩu không khớp", "error");
     } else {
-      const response = UpdatePassword(oldPassword, newPassword);
+      const response = updatePassword(oldPassword, newPassword);
       //console.log(response);
       if (response) {
         swal("Thành công", "Mật khẩu đã được thay đổi", "success");
