@@ -2,11 +2,13 @@ import "../../Style/user-profile.scss";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+
 import {
   updatePassword,
   getProfile,
   updateProfile,
 } from "../../Services/userService";
+
 
 function Profile() {
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -68,6 +70,7 @@ function Profile() {
       };
 
       const data = await updateProfile(updateData);
+
 
       // Update profile state with response data
       setProfile({
