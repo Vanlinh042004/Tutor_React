@@ -85,8 +85,8 @@ function TutorDetail() {
       fetchReviews();
       swal("Thành công!", "Bạn đã đánh gia gia sư thành công!", "success");
     } catch (error) {
-      //console.error(error);
-      swal("Thất bại!", "Bạn đã đánh giá gia sư này!", "error");
+      console.error(error);
+      swal("Thất bại!", "Bạn không thể đánh giá Gia sư này!", "error");
     }
   };
 
