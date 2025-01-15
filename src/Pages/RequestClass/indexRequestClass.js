@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { get } from "../../Utils/request";
+import { get, post } from "../../Utils/request";
+import { useNavigate } from "react-router-dom";
 
 const IndexRequestClass = () => {
   const [courses, setCourses] = useState([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await get("courses/registrations", true);
-        console.log("Pending registrations:", response.pendingRegistrations);
         setCourses(
           response.pendingRegistrations.map((reg) => ({
             id: reg.registrationId,
@@ -18,19 +20,42 @@ const IndexRequestClass = () => {
             address: reg.course.address,
             sexTutor: reg.course.sexTutor,
             requirements: reg.course.requirements,
+            slug: reg.course.slug,
           }))
         );
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        setErrorMessage("Không thể tải danh sách lớp học.");
       }
     };
 
     fetchCourses();
   }, []);
 
+  const navigate = useNavigate();
+
+  const handlePayment = async (courseSlug) => {
+    setIsProcessing(true);
+    setErrorMessage("");
+    try {
+      const createResponse = await post(
+        `transactions/${courseSlug}`,
+        { paymentMethod: "QR Scan" },
+        true
+      );
+      const transactionId = createResponse.transaction._id;
+      navigate(`/payment/${transactionId}`);
+    } catch (error) {
+      setErrorMessage("Không thể tạo giao dịch. Vui lòng thử lại sau.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 mt-5">
-      {courses && courses.length > 0 ? (
+      {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+      {isProcessing && <p>Đang xử lý, vui lòng chờ...</p>}
+      {courses.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {courses.map((course) => (
             <div
@@ -40,21 +65,13 @@ const IndexRequestClass = () => {
               <h3 className="text-lg font-semibold mb-2">
                 {course.subject} - {course.grade}
               </h3>
-              <p className="mb-1">
-                <b>Lương:</b> <span className="price">{course.salary}</span>
-              </p>
-              <p className="mb-1">
-                <b>Địa chỉ:</b> {course.address}
-              </p>
-              <p className="mb-1">
-                <b>Giới tính yêu cầu:</b> {course.sexTutor}
-              </p>
-              <p className="mb-2">
-                <b>Yêu cầu:</b> {course.requirements}
-              </p>
+              <p><b>Lương:</b> {course.salary}</p>
+              <p><b>Địa chỉ:</b> {course.address}</p>
+              <p><b>Yêu cầu:</b> {course.requirements}</p>
               <button
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                onClick={() => handlePayment(course.id)}
+                onClick={() => handlePayment(course.slug)}
+                disabled={isProcessing}
               >
                 Thanh toán
               </button>
@@ -62,13 +79,10 @@ const IndexRequestClass = () => {
           ))}
         </div>
       ) : (
-        <p>Không có lớp học nào được nhận.</p>
+        <p>Không có lớp học nào cần thanh toán.</p>
       )}
     </div>
   );
 };
-
-// Hàm xử lý thanh toán
-const handlePayment = (courseId) => {};
 
 export default IndexRequestClass;
