@@ -25,7 +25,7 @@ function Courses() {
         if (search.trim()) {
           const data = await searchCourse(search);
           if (data.courses.length === 0) {
-            swal("Không tìm thấy kết quả nào", "Vui lòng thử lại", "error");
+            swal("Thât bại!", "Không tìm thấy lớp học nào!", "error");
           }
           setCourses(assignRandomImages(data.courses));
           setTotalCourses(data.totalPages);

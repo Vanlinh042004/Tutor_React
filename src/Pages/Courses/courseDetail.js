@@ -33,15 +33,12 @@ function CourseDetail() {
       const courseData = await registerCourse(course);
       //console.log(courseData);
       if (courseData) {
-        swal("Đăng ký nhận lớp thành công", {
-          icon: "success",
-        });
+        swal("Thành công!", "Đăng ký nhận lớp thành công!", "success");
       } else {
-        swal("Đăng ký nhận lớp thất bại", {
-          icon: "error",
-        });
+        swal("Thất bại!", "Đăng ký nhận lớp thất bại!", "error");
       }
     } catch (error) {
+      swal("Thất bại!", "Đăng ký nhận lớp thất bại!", "error");
       console.error(error);
     }
   };

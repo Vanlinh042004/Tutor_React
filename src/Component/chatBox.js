@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import "../Style/chatBox.scss";
-import { getCookie } from "../Helpers/cookie"; // Đảm bảo đường dẫn đúng
+
+import { getCookie } from "../Helpers/cookie";
+
 
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+
   const [socket, setSocket] = useState(null);
 
   const adminId = 109; // ID của admin (có thể thay đổi theo ứng dụng của bạn)
@@ -65,6 +68,7 @@ const ChatBox = () => {
     }
   };
 
+
   const handleSend = () => {
     if (input.trim() !== "" && socket) {
       const userId = parseInt(getCookie("userId"), 10); // Lấy ID người dùng từ cookie
@@ -93,7 +97,7 @@ const ChatBox = () => {
         <i className="fa-solid fa-headset"></i>
       </div>
 
-      {isOpen && (
+      {token && isOpen && (
         <div className="chat-box">
           <div className="chat-header">
             <h4>Hỗ trợ khách hàng</h4>

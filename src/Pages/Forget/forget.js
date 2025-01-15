@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ForgotPassword, VerifyReset } from "../../Services/userService";
+import swal from "sweetalert";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -12,21 +13,26 @@ const ForgetPassword = () => {
     if (email) {
       try {
         const response = await ForgotPassword(email);
-        console.log(response);
+        //console.log(response);
 
         // Kiểm tra nếu phản hồi có chứa thông báo thành công
         if (response && response.message) {
-          console.log("Mã xác thực đã được gửi:", response.message);
+          //console.log("Mã xác thực đã được gửi:", response.message);
+
           setIsCodeSent(true);
           setErrorMessage("");
+          swal("Thành công!", "Mã xác thực đã được gửi!", "success");
           // Lưu email vào localStorage
           localStorage.setItem("email", email);
         } else {
-          setErrorMessage("Gửi mã thất bại. Vui lòng thử lại.");
+          setErrorMessage("");
+          swal("Thất bại!", "Email không tồn tại!", "error");
         }
       } catch (error) {
-        setErrorMessage("Đã xảy ra lỗi khi gửi mã. Vui lòng thử lại.");
-        console.error(error);
+        setErrorMessage("");
+        swal("Thất bại!", "Email không tồn tại!", "error");
+
+        //console.error(error);
       }
     } else {
       setErrorMessage("Vui lòng nhập email.");
@@ -40,13 +46,14 @@ const ForgetPassword = () => {
 
         // Kiểm tra nếu `message` chứa chuỗi "Mã xác thực hợp lệ"
         if (response && response.message === "Mã xác thực hợp lệ.") {
+          swal("Thành công!", "Mã xác thực hợp lệ!", "success");
           navigate("/reset-password"); // Chuyển đến trang đặt lại mật khẩu
         } else {
           setErrorMessage(response.message || "Mã xác nhận không chính xác.");
         }
       } catch (error) {
         setErrorMessage("Đã xảy ra lỗi khi xác nhận mã. Vui lòng thử lại.");
-        console.error(error);
+        //console.error(error);
       }
     } else {
       setErrorMessage("Vui lòng nhập mã xác nhận.");

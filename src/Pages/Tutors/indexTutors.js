@@ -32,7 +32,7 @@ function Tutors() {
           setTutors(data.tutors);
           setTotalPage(data.pagination.totalPages);
         } else {
-          const data = await getTutors(pageActive);
+          const data = await getTutors(pageActive + 1);
           //console.log(data.data);
           setTutors(data.data);
           setTotalPage(data.pagination.totalPages);

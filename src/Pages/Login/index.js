@@ -26,10 +26,10 @@ function Signin() {
         swal("Thành công!", "Bạn đã đăng nhập thành công!", "success");
         navigate("/");
       } else {
-        swal("Lỗi", "Thông tin đăng nhập không hợp lệ", "error");
+        swal("Thất bại!", "Thông tin đăng nhập không hợp lệ!", "error");
       }
     } catch (err) {
-      swal("Lỗi", "Thông tin đăng nhập không hợp lệ", "error");
+      swal("Thất bại!", "Thông tin đăng nhập không hợp lệ!", "error");
     }
   };
   return (

@@ -66,7 +66,7 @@ const RegisterCourse = () => {
       } else {
         try {
           const response = await createCourse(formData);
-          console.log(response);
+          //console.log(response);
           if (response) {
             swal(
               "Đăng ký thành công!",
@@ -77,7 +77,7 @@ const RegisterCourse = () => {
             swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
           }
         } catch (error) {
-          console.error("Error:", error);
+          //console.error("Error:", error);
           swal("Đăng ký thất bại!", "Vui lòng thử lại sau!", "error");
         }
       }
