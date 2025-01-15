@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "../Style/chatBox.scss";
+import { getCookie } from "../Helpers/cookie";
 
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-
+  const token = getCookie("token");
   const toggleChatBox = () => setIsOpen(!isOpen);
 
   const handleSend = () => {
@@ -21,7 +22,7 @@ const ChatBox = () => {
         <i className="fa-solid fa-headset"></i>
       </div>
 
-      {isOpen && (
+      {token && isOpen && (
         <div className="chat-box">
           <div className="chat-header">
             <h4>Hỗ trợ khách hàng</h4>

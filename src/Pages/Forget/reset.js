@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import swal from "sweetalert";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -30,9 +30,9 @@ const ResetPassword = () => {
         });
 
         if (response.ok) {
-          setSuccessMessage("Đổi mật khẩu thành công. Quay lại đăng nhập...");
+          setSuccessMessage("");
           setErrorMessage("");
-
+          swal("Thành công!", "Đặt lại mật khẩu thành công!", "success");
           // Chuyển hướng sau khi thành công
           setTimeout(() => {
             navigate("/login");

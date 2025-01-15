@@ -1,6 +1,7 @@
 import React from "react";
 import { getMyCourse, deleteCourse } from "../../Services/parentService";
 import { useEffect, useState } from "react";
+import swal from "sweetalert";
 const ParentClass = () => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
@@ -10,17 +11,19 @@ const ParentClass = () => {
         //console.log(data.courses);
         setCourses(data.courses);
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        //console.error("Error fetching courses:", error);
       }
     };
     getCourse();
   }, [courses]);
   const handleDelete = async (slug) => {
     try {
-      const data = await deleteCourse(slug);
-      console.log(data);
+      await deleteCourse(slug);
+      //console.log(data);
+      swal("Thành công!", "Hủy đăng ký thành công!", "success");
     } catch (error) {
-      console.error("Error deleting course:", error);
+      //console.error("Error deleting course:", error);
+      swal("Thất bại!", "Lớp học đã được duyệt!", "error");
     }
   };
   return (

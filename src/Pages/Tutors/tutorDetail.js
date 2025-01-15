@@ -36,7 +36,7 @@ function TutorDetail() {
       const data = await getDetailTutor(slug);
       setTutor(data.tutor);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
 
@@ -69,7 +69,11 @@ function TutorDetail() {
 
   const handleSubmitReview = async () => {
     if (selectedRating === 0 || comment.trim() === "") {
-      swal("Error", "Please provide a rating and comment.", "error");
+      swal(
+        "Thất bại!",
+        "Xin hãy cho đánh giá và phản hồi về gia sư này!",
+        "error"
+      );
       return;
     }
 
@@ -79,10 +83,10 @@ function TutorDetail() {
       setSelectedRating(0);
       setComment("");
       fetchReviews();
-      swal("Success", "Review submitted successfully.", "success");
+      swal("Thành công!", "Bạn đã đánh gia gia sư thành công!", "success");
     } catch (error) {
-      console.error(error);
-      swal("Error", "Failed to submit review.", "error");
+      //console.error(error);
+      swal("Thất bại!", "Bạn đã đánh giá gia sư này!", "error");
     }
   };
 
@@ -200,8 +204,8 @@ function TutorDetail() {
                   setShowModal(true);
                 } else {
                   swal(
-                    "Error",
-                    "Chỉ phụ huynh mới được đánh giá gia sư.",
+                    "Thất bại!",
+                    "Chỉ phụ huynh mới được đánh giá gia sư!",
                     "error"
                   );
                 }
