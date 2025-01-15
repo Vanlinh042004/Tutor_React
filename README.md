@@ -5,3 +5,5 @@
   + đăng nhập tutor
   + Lớp học đã nhận=> hiện tất cả các lớp đã nhận (eyy cái này nó có hai hàm luôn hay sao á, Minh mở BE đọc nhen + hỏi Nam + Lĩnh)
   + Lớp nào chưa thanh toán thì thanh toán 
+
+npm install --legacy-peer-deps
