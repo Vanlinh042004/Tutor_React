@@ -34,6 +34,7 @@ function Header() {
       location.pathname === "/profile" ||
       location.pathname === "/logout" ||
       location.pathname === "/request-class" ||
+      location.pathname === "/received-classes"||
       location.pathname === "/parent-class" ||
       location.pathname === "/home" ||
       location.pathname === "/about" ||
@@ -82,9 +83,14 @@ function Header() {
                           Hồ sơ
                         </NavLink>
                         {role === "tutor" ? (
+                          <>
                           <NavLink to="/request-class" className="user__link">
+                            Lớp học chờ thanh toán
+                          </NavLink>
+                          <NavLink to="/received-classes" className="user__link">
                             Lớp học đã nhận
                           </NavLink>
+                          </>
                         ) : (
                           <NavLink to="/parent-class" className="user__link">
                             Lớp học đã đăng ký

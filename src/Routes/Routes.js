@@ -15,6 +15,9 @@ import RegisterCourse from "../Pages/Courses/RegisterCourse";
 import Profile from "../Pages/Profile/indexProfile";
 import RequestClass from "../Pages/RequestClass/indexRequestClass";
 import ParentClass from "../Pages/ParentClass/indexParentClass";
+import PaymentPage from "../Pages/PaymentPage/indexPaymentPage";
+import ReceivedClass from "../Pages/ReceivedClass/indexReceivedClass"; // Corrected import
+
 export const routes = [
   {
     path: "/",
@@ -83,6 +86,14 @@ export const routes = [
       {
         path: "parent-class",
         element: <ParentClass />,
+      },
+      {
+        path: "payment/:transactionId",
+        element: <PaymentPage />,
+      },
+      {
+        path: "received-classes", // Added route
+        element: <ReceivedClass/>,
       },
     ],
   },
