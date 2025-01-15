@@ -17,9 +17,11 @@ function Signin() {
     // mai.nguyen@example.com
     try {
       const data = await Login(email, password);
+     // console.log('data',data)
       if (data.length !== 0) {
         setCookie("token", data.token, 1);
         setCookie("name", data.name, 1);
+        setCookie("userId", data._id, 1); // Lưu userId
         dispatch(checkLogin(true));
         swal("Thành công!", "Bạn đã đăng nhập thành công!", "success");
         navigate("/");
