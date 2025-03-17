@@ -115,21 +115,21 @@
         max-width: 70%;
         word-wrap: break-word;
       }
-      
+
       .user-message {
         background-color: #007bff; /* Màu xanh cho user */
         color: white;
         margin-left: auto; /* Căn phải */
         text-align: right;
       }
-      
+
       .admin-message {
         background-color: #f1f1f1; /* Màu xám cho admin */
         color: #333;
         margin-right: auto; /* Căn trái */
         text-align: left;
       }
-      
+
       .chat-body {
         height: 300px;
         overflow-y: auto;
@@ -137,14 +137,14 @@
         display: flex;
         flex-direction: column;
       }
-      
+
       .chat-footer {
         display: flex;
         align-items: center;
         padding: 10px;
         border-top: 1px solid #ccc;
       }
-      
+
       .chat-footer input {
         flex: 1;
         padding: 10px;
@@ -152,7 +152,7 @@
         border-radius: 5px;
         margin-right: 10px;
       }
-      
+
       .chat-footer button {
         padding: 10px 20px;
         background-color: #007bff;
@@ -161,11 +161,10 @@
         border-radius: 5px;
         cursor: pointer;
       }
-      
+
       .chat-footer button:hover {
         background-color: #0056b3;
       }
-      
     }
   }
 }

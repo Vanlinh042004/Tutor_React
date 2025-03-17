@@ -4,11 +4,11 @@ import "../Style/chatBox.scss";
 
 import { getCookie } from "../Helpers/cookie";
 
-
 const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const token = getCookie("token"); // Lấy token từ cookie
 
   const [socket, setSocket] = useState(null);
 
@@ -16,7 +16,6 @@ const ChatBox = () => {
 
   // Kết nối socket khi component được mount
   useEffect(() => {
-    const token = getCookie("token"); // Lấy token từ cookie
     console.log("Token:", token); // Kiểm tra token được lấy đúng
     if (!token) {
       console.error("No token found in cookies");
@@ -48,8 +47,11 @@ const ChatBox = () => {
 
     const userId = parseInt(getCookie("userId"), 10); // Lấy ID người dùng từ cookie
     //console.log("user", userId);
-    const chatRoomId = [Math.min(userId, adminId), Math.max(userId, adminId)].join("-");
-    
+    const chatRoomId = [
+      Math.min(userId, adminId),
+      Math.max(userId, adminId),
+    ].join("-");
+
     // Gửi yêu cầu tải lại tin nhắn từ server khi kết nối socket
     newSocket.emit("load-messages", { chatRoomId });
 
@@ -62,17 +64,22 @@ const ChatBox = () => {
     // Khi chat box mở và socket tồn tại, yêu cầu tải lại tin nhắn
     if (!isOpen && socket) {
       const userId = parseInt(getCookie("userId"), 10); // Lấy ID người dùng từ cookie
-      const chatRoomId = [Math.min(userId, adminId), Math.max(userId, adminId)].join("-");
+      const chatRoomId = [
+        Math.min(userId, adminId),
+        Math.max(userId, adminId),
+      ].join("-");
 
       socket.emit("load-messages", { chatRoomId });
     }
   };
 
-
   const handleSend = () => {
     if (input.trim() !== "" && socket) {
       const userId = parseInt(getCookie("userId"), 10); // Lấy ID người dùng từ cookie
-      const chatRoomId = [Math.min(userId, adminId), Math.max(userId, adminId)].join("-");
+      const chatRoomId = [
+        Math.min(userId, adminId),
+        Math.max(userId, adminId),
+      ].join("-");
 
       const messageData = {
         senderId: userId,
